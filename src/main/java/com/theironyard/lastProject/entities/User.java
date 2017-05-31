@@ -1,14 +1,12 @@
 package com.theironyard.lastProject.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by Keith on 5/31/17.
  */
 @Entity
+@Table(name= "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
