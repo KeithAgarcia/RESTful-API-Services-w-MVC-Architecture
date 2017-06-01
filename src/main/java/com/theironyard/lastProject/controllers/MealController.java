@@ -47,10 +47,9 @@ public class MealController {
     }
 
     @CrossOrigin
-    @RequestMapping(path = "/reserve-serving", method = RequestMethod.POST)
-    public void reserveMeal(@RequestBody Serving serving, Meal meal){
+    @RequestMapping(path = "/reserve-serving", method = RequestMethod.PUT)
+    public void reserveServing(@RequestBody Serving serving){
         User u = users.findOne(1);
-        mealService.reserveServing(serving, meal, u);
+        mealService.reserveServing(serving, u);
     }
-
 }

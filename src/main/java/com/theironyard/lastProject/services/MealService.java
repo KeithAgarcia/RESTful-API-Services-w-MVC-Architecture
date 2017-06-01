@@ -30,8 +30,7 @@ public class MealService {
         }
     }
 
-    public void reserveServing(Serving serving, Meal meal, User u){
-        serving.setMeal(meal);
+    public void reserveServing(Serving serving, User u){
         serving.setUserEater(u);
         servings.save(serving);
     }
