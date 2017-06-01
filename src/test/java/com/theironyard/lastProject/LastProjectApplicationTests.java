@@ -48,9 +48,19 @@ public class LastProjectApplicationTests {
 
 	@Before
 	public void before() {
-		// we're going to use our web application context to
-		// build our mockmvc object.
 		mockMvc = MockMvcBuilders.webAppContextSetup(wap).build();
+        User user = new User();
+        user.setUsername("Billy");
+        users.save(user);
+
+        Meal meal = new Meal();
+
+        meal.setUser(user);
+        meal.setName("pizza");
+        meal.setAvailableTime(LocalDateTime.now());
+        meal.setRecipe("Awesome Toppings");
+        meal.setCategory("Italian");
+        meal.setServingCount(5);
 
 		// insert test meal into the db?
 	}
@@ -69,31 +79,23 @@ public class LastProjectApplicationTests {
 		meal.setRecipe("Awesome Toppings");
 		meal.setCategory("Italian");
         meal.setServingCount(5);
-  // <------------- ******* issues
-
-//		Serving serving = new Serving(meal);
-//		serving.setId(3);
-//		List<Serving> servings = new ArrayList<>();
-//		servings.add(serving);
-//		servings.add(serving);
-//		meal.setServings(servings);
-//		serving.setMeal(meal);
 
 		String json = mapper.writeValueAsString(meal);
-
-
-
-//		String json2 = mapper.writeValueAsString(serving);
 
 		mockMvc.perform(
 				MockMvcRequestBuilders.post("/new-meal")
    					.content(json)
-//						.content(json2)
 						.contentType("application/json")
 		);
 
 		Assert.assertTrue(meals.count() == 1);
 	}
+
+	@Test
+	public void reserveServing() throws Exception{
+
+	}
+
 
 	@Test
     public void getRequestTest() throws Exception {

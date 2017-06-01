@@ -1,6 +1,7 @@
 package com.theironyard.lastProject.controllers;
 
 import com.theironyard.lastProject.entities.Meal;
+import com.theironyard.lastProject.entities.Serving;
 import com.theironyard.lastProject.entities.User;
 import com.theironyard.lastProject.repositories.MealRepository;
 import com.theironyard.lastProject.repositories.UserRepository;
@@ -42,9 +43,14 @@ public class MealController {
     @CrossOrigin
     @RequestMapping(path = "/all-meals", method = RequestMethod.GET)
     public List<Meal> getAllMeals() {
-        // spring will turn this into json
         return (List<Meal>) meals.findAll();
     }
 
+    @CrossOrigin
+    @RequestMapping(path = "/reserve-serving/", method = RequestMethod.POST)
+    public void reserveMeal(@RequestBody Serving serving, Meal meal){
+        User u = users.findOne(1);
+        mealService.reserveServing(serving, meal, u);
+    }
 
 }
