@@ -21,6 +21,7 @@ public class MealController {
         this.mealService = mealService;
     }
 
+    @CrossOrigin
     @RequestMapping(path = "/new-meal", method = RequestMethod.POST) //User user or Meal meal?
     public void saveMeal(@RequestBody Meal meal){ //@requestbody?? //save meal = method name
 
@@ -28,7 +29,7 @@ public class MealController {
         mealService.saveMeal(meal, u);
     }
 
-
+    @CrossOrigin
     @RequestMapping(path = "/select-meal/{id}", method = RequestMethod.GET)
     public Meal getMeal(@PathVariable("id") int id) {
         return meals.findOne(id);

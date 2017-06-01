@@ -6,7 +6,6 @@ import com.theironyard.lastProject.entities.User;
 import com.theironyard.lastProject.repositories.MealRepository;
 import com.theironyard.lastProject.repositories.ServingRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 /**
  * Created by Keith on 5/31/17.
@@ -21,7 +20,6 @@ public class MealService {
         this.servings = servings;
     }
 
-    @CrossOrigin
     public void saveMeal(Meal meal, User u) {
         meal.setUser(u);
         meals.save(meal);
