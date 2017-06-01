@@ -90,13 +90,6 @@ public class LastProjectApplicationTests {
 
 		Assert.assertTrue(meals.count() == 1);
 	}
+
 }
-
-//	        this.servings = servings;
-//        this.user = user;
-//        this.name = name;
-//        this.availableTime = availableTime;
-//        this.recipe = recipe;
-//        this.category = category;
-
 

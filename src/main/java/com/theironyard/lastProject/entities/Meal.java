@@ -103,7 +103,8 @@ public class Meal {
     }
 
     public int getServingCount() {
-        return servings.size();
+//        return servings.size();
+        return servingCount;
     }
 
     public void setServingCount(int servingCount) {
