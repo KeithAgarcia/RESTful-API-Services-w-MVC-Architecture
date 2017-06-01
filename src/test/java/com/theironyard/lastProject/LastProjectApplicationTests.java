@@ -50,15 +50,14 @@ public class LastProjectApplicationTests {
 		Meal meal = new Meal();
 		meal.setId(1);
 		meal.setUser(user);
-		Serving serving = new Serving(meal);
-		serving.setId(3);
-		serving.setEta("7:00");
-		serving.setMeal(meal);
-		serving.setUserEater(user);
 		meal.setName("pizza");
 		meal.setAvailableTime(LocalDateTime.now());
 		meal.setRecipe("Awesome Toppings");
 		meal.setCategory("Italian");
+
+		Serving serving = new Serving(meal);
+		serving.setId(3);
+		serving.setMeal(meal);
 
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -67,7 +66,7 @@ public class LastProjectApplicationTests {
 
 		mockMvc.perform(
 				MockMvcRequestBuilders.post("/create-meal")
-						.content(json)
+    					.content(json)
 						.content(json2)
 						.contentType("application/json")
 		);
