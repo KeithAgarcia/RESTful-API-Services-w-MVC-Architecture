@@ -23,6 +23,7 @@ public class Serving {
 
 
     public Serving(Meal meal) {
+        this.meal = meal;
     }
 
     public Serving(Meal meal, User userEater, String eta) {
