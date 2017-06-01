@@ -50,6 +50,7 @@ public class MealController {
     @RequestMapping(path = "/reserve-serving", method = RequestMethod.PUT)
     public void reserveServing(@RequestBody Serving serving){
         User u = users.findOne(1);
-        mealService.reserveServing(serving, u);
+        Meal m = meals.findOne(1);
+        mealService.reserveServing(serving, u, m);
     }
 }
