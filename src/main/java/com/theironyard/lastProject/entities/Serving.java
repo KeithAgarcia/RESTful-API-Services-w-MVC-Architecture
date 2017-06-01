@@ -1,6 +1,7 @@
 package com.theironyard.lastProject.entities;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 /**
  * Created by Keith on 5/31/17.
@@ -19,14 +20,14 @@ public class Serving {
     User user;
 
     @Column
-    String eta;
+    LocalDateTime eta;
 
 
     public Serving(Meal meal) {
         this.meal = meal;
     }
 
-    public Serving(Meal meal, User userEater, String eta) {
+    public Serving(Meal meal, User userEater, LocalDateTime eta) {
         this.meal = meal;
         this.user = userEater;
         this.eta = eta;
@@ -56,11 +57,11 @@ public class Serving {
         this.user = userEater;
     }
 
-    public String getEta() {
+    public LocalDateTime getEta() {
         return eta;
     }
 
-    public void setEta(String eta) {
+    public void setEta(LocalDateTime eta) {
         this.eta = eta;
     }
 }

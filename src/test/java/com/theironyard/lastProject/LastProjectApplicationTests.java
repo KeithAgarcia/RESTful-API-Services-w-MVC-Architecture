@@ -2,6 +2,7 @@ package com.theironyard.lastProject;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.theironyard.lastProject.entities.Meal;
+import com.theironyard.lastProject.entities.Serving;
 import com.theironyard.lastProject.entities.User;
 import com.theironyard.lastProject.repositories.MealRepository;
 import com.theironyard.lastProject.repositories.ServingRepository;
@@ -93,6 +94,29 @@ public class LastProjectApplicationTests {
 
 	@Test
 	public void reserveServing() throws Exception{
+		User user = new User();
+		user.setUsername("Billy");
+		users.save(user);
+
+		Meal meal = new Meal();
+
+		meal.setUser(user);
+		meal.setName("pizza");
+		meal.setAvailableTime(LocalDateTime.now());
+		meal.setRecipe("Awesome Toppings");
+		meal.setCategory("Italian");
+		meal.setServingCount(5);
+
+		Serving serving = new Serving(meal);
+		serving.setEta(LocalDateTime.now());
+		serving.setUserEater(user);
+		String json = mapper.writeValueAsString(serving);
+
+		mockMvc.perform(
+				MockMvcRequestBuilders.post("/reserve-serving")
+						.content(json)
+						.contentType("application/json")
+		);
 
 	}
 
