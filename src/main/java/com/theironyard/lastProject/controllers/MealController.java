@@ -20,9 +20,10 @@ public class MealController {
     MealService mealService;
     UserRepository users;
 
-    public MealController(MealService mealService, UserRepository users) {
+    public MealController(MealRepository meals, MealService mealService, UserRepository users) {
         this.users = users;
         this.mealService = mealService;
+        this.meals = meals;
     }
 
     @CrossOrigin

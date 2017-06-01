@@ -15,11 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -49,6 +51,8 @@ public class LastProjectApplicationTests {
 		// we're going to use our web application context to
 		// build our mockmvc object.
 		mockMvc = MockMvcBuilders.webAppContextSetup(wap).build();
+
+		// insert test meal into the db?
 	}
 
 	@Test
@@ -90,6 +94,27 @@ public class LastProjectApplicationTests {
 
 		Assert.assertTrue(meals.count() == 1);
 	}
+
+	@Test
+    public void getRequestTest() throws Exception {
+	    ResultActions results = mockMvc.perform(
+	            MockMvcRequestBuilders.get("/all-meals")
+        );
+
+	    // how you can access what the controller sent back:
+	    //results.andReturn().getResponse().getContentAsString()
+
+        // once you have the json response, you can deserialize it into
+        // an arraylist of meals. then you can compare the arraylist
+        // you got back from the controller with the arraylist you expect to get back.
+
+        // OR, you can specify the json you expect to get back and see if
+        // the controller returned that same json
+
+        ArrayList test = mapper.readValue(results.andReturn().getResponse().getContentAsString(), ArrayList.class);
+
+	    return;
+    }
 
 }
 
