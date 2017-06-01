@@ -2,6 +2,7 @@ package com.theironyard.lastProject.controllers;
 
 import com.theironyard.lastProject.entities.Meal;
 import com.theironyard.lastProject.services.MealService;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,8 +26,7 @@ public class MealController {
 //    }
 
     @RequestMapping(path = "/new-meal", method = RequestMethod.POST) //User user or Meal meal?
-    public String saveMeal(Meal meal, int servings){ //@requestbody?? //save meal = method name
-        mealService.saveMeal(meal, servings);
-        return ":/";
+    public void saveMeal(@RequestBody Meal meal){ //@requestbody?? //save meal = method name
+        mealService.saveMeal(meal);
     }
 }

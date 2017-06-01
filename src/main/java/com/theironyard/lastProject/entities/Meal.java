@@ -32,6 +32,8 @@ public class Meal {
     @Column(nullable = false)
     String category;
 
+    public int servingCount;
+
     public Meal() {
     }
 
@@ -98,6 +100,14 @@ public class Meal {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public int getServingCount() {
+        return servings.size();
+    }
+
+    public void setServingCount(int servingCount) {
+        this.servingCount = servingCount;
     }
 }
 

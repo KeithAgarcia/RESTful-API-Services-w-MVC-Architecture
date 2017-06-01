@@ -18,7 +18,7 @@ public class Serving {
     @OneToOne
     User user;
 
-    @Column(nullable = false)
+    @Column
     String eta;
 
 

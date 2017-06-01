@@ -15,7 +15,7 @@ public class MealService {
     ServingRepository servings;
 
     public MealService(MealRepository mealRepository, ServingRepository servings) {
-        this.meals = meals;
+        this.meals = mealRepository;
         this.servings = servings;
     }
 //Do I need to findFirstByName or ID?
@@ -31,10 +31,10 @@ public class MealService {
 //        }
 
 
-    public void saveMeal(Meal meal, int servingAmt) {
-        meal = new Meal();
+    public void saveMeal(Meal meal) {
         meals.save(meal);
-        for(int i = 0; i < servingAmt; i++){
+
+        for(int i = 0; i < meal.getServingCount(); i++){
             Serving serving = new Serving(meal);
             servings.save(serving);
         }
