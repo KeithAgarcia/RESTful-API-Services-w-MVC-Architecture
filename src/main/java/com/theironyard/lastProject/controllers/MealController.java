@@ -7,9 +7,13 @@ import com.theironyard.lastProject.repositories.UserRepository;
 import com.theironyard.lastProject.services.MealService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * Created by Keith on 5/31/17.
  */
+//heroku pg:psql
+
 @RestController
 public class MealController {
     MealRepository meals;
@@ -22,9 +26,8 @@ public class MealController {
     }
 
     @CrossOrigin
-    @RequestMapping(path = "/new-meal", method = RequestMethod.POST) //User user or Meal meal?
-    public void saveMeal(@RequestBody Meal meal){ //@requestbody?? //save meal = method name
-
+    @RequestMapping(path = "/new-meal", method = RequestMethod.POST)
+    public void saveMeal(@RequestBody Meal meal){
         User u = users.findOne(1);
         mealService.saveMeal(meal, u);
     }
@@ -34,4 +37,13 @@ public class MealController {
     public Meal getMeal(@PathVariable("id") int id) {
         return meals.findOne(id);
     }
+
+    @CrossOrigin
+    @RequestMapping(path = "/all-meals", method = RequestMethod.GET)
+    public List<Meal> getAllMeals() {
+        // spring will turn this into json
+        return (List<Meal>) meals.findAll();
+    }
+
+
 }
