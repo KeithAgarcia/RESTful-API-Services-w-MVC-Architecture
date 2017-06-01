@@ -18,15 +18,10 @@ public class MealController {
         this.mealService = mealService;
     }
 
-//    @RequestMapping(path = "/new-meal", method = RequestMethod.POST) //User user or Meal meal?
-//    public String newMeal(Meal meal, int servings){ //@requestbody?? //save meal = method name
-//        mealService.saveMeal(meal, servings);
-////        mealService.createMeal(meal.getName(),meal.isCook(), meal.getRecipe(), meal.getPickup(), meal.getEta(), meal.getCategory(), meal.getServings());
-//        return "/";
-//    }
-
     @RequestMapping(path = "/new-meal", method = RequestMethod.POST) //User user or Meal meal?
     public void saveMeal(@RequestBody Meal meal){ //@requestbody?? //save meal = method name
         mealService.saveMeal(meal);
     }
+
+    @RequestMapping(path= "/")
 }
