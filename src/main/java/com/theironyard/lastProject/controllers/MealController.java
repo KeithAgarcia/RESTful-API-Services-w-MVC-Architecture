@@ -53,6 +53,9 @@ public class MealController {
         User u = users.findOne(1);
         Meal m = meals.findOne(id);
         mealService.reserveServing(m, u, serving);
+        if(m.getUser() == null){
+            return null;
+        }
         return serving;
     }
 }
