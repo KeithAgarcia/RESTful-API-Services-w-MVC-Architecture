@@ -29,9 +29,10 @@ public class MealController {
 
     @CrossOrigin
     @RequestMapping(path = "/new-meal", method = RequestMethod.POST)
-    public void saveMeal(@RequestBody Meal meal){
+    public  Meal saveMeal(@RequestBody Meal meal){
         User u = users.findOne(1);
         mealService.saveMeal(meal, u);
+        return meal;
     }
 
     @CrossOrigin
@@ -47,10 +48,10 @@ public class MealController {
     }
 
     @CrossOrigin
-    @RequestMapping(path = "/reserve-serving", method = RequestMethod.PUT)
-    public void reserveServing(@RequestBody Serving serving){
+    @RequestMapping(path = "/reserve-serving/{id}", method = RequestMethod.PUT)
+    public void reserveServing(@RequestBody Serving serving, @PathVariable ("id") int id){
         User u = users.findOne(1);
-        Meal m = meals.findOne(1);
-        mealService.reserveServing(serving, u, m);
+        Meal m = meals.findOne(id);
+        mealService.reserveServing(m, u, serving);
     }
 }

@@ -28,13 +28,22 @@ public class MealService {
             Serving serving = new Serving(meal);
             servings.save(serving);
         }
+
     }
 
-    public void reserveServing(Serving serving, User u, Meal m){
-        serving.setUserEater(u);
-        serving.setMeal(m);
-        if(serving.getEta() == null) {
-            servings.save(serving);
+    public void reserveServing(Meal meal, User u, Serving requestServing) {
+        requestServing.setUserEater(u);
+        requestServing.setMeal(meal);
+
+        // see if there are any servings in this meal without an eta (e.g. not taken
+        Serving serving = servings.findFirstByMealAndEtaIsNull(meal);
+
+        // if there is a serving that matches your criteria,
+        if(serving != null) {
+            // update it with requestServing's eta.
+            // save the existing serving.
+            servings.save(requestServing);
         }
     }
+
 }

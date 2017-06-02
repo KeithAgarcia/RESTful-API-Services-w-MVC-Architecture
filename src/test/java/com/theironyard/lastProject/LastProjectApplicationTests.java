@@ -21,7 +21,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import javax.validation.constraints.AssertTrue;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -119,7 +118,7 @@ public class LastProjectApplicationTests {
 						.content(json)
 						.contentType("application/json")
 		);
-		Assert.assertEquals(serving.);
+//		Assert.assertEquals(serving.)
 
 	}
 

@@ -22,9 +22,15 @@ public class Serving {
     @Column
     LocalDateTime eta;
 
+    public Serving() {
+    }
 
     public Serving(Meal meal) {
         this.meal = meal;
+    }
+
+    public Serving(LocalDateTime eta){
+        this.eta = eta;
     }
 
     public Serving(Meal meal, User userEater, LocalDateTime eta) {
