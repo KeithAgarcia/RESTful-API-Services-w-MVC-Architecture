@@ -49,13 +49,9 @@ public class MealController {
 
     @CrossOrigin
     @RequestMapping(path = "/reserve-serving/{id}", method = RequestMethod.PUT)
-    public Serving reserveServing(@RequestBody Serving serving, @PathVariable ("id") int id){
+    public void reserveServing(@RequestBody Serving serving, @PathVariable ("id") int id){
         User u = users.findOne(1);
         Meal m = meals.findOne(id);
         mealService.reserveServing(m, u, serving);
-        if(m.getUser() == null){
-            return null;
-        }
-        return serving;
     }
 }
