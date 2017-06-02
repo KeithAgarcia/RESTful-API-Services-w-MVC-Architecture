@@ -39,10 +39,14 @@ public class MealService {
         Serving serving = servings.findFirstByMealAndEtaIsNull(meal);
 
         // if there is a serving that matches your criteria,
-        if(serving != null) {
+        if(serving!= null) {
             // update it with requestServing's eta.
+            serving.setEta(requestServing.getEta());
+
+            serving.setUserEater(u);
+
             // save the existing serving.
-            servings.save(requestServing);
+            servings.save(serving);
         }
     }
 
