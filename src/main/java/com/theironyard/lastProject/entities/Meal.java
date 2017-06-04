@@ -49,16 +49,6 @@ public class Meal {
     public Meal() {
     }
 
-//    public Meal(List<Serving> servings, User user, String name, LocalDateTime availableTime, String recipe, String category) {
-//        this.servings = servings;
-//        this.user = user;
-//        this.name = name;
-//        this.availableTime = availableTime;
-//        this.recipe = recipe;
-//        this.category = category;
-//
-//    }
-
     public Meal(List<Serving> servings, User user, String name, LocalDateTime availableTime, String recipe, String category, String street, String city, String state, String zipcode, int servingCount) {
         this.servings = servings;
         this.user = user;
