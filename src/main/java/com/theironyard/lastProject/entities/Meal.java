@@ -32,18 +32,45 @@ public class Meal {
     @Column(nullable = false)
     String category;
 
+    @Column(nullable = false)
+    String street;
+
+    @Column(nullable = false)
+    String city;
+
+    @Column(nullable = false)
+    String state;
+
+    @Column(nullable = false)
+    String zipcode;
+
     public int servingCount;
 
     public Meal() {
     }
 
-    public Meal(List<Serving> servings, User user, String name, LocalDateTime availableTime, String recipe, String category) {
+//    public Meal(List<Serving> servings, User user, String name, LocalDateTime availableTime, String recipe, String category) {
+//        this.servings = servings;
+//        this.user = user;
+//        this.name = name;
+//        this.availableTime = availableTime;
+//        this.recipe = recipe;
+//        this.category = category;
+//
+//    }
+
+    public Meal(List<Serving> servings, User user, String name, LocalDateTime availableTime, String recipe, String category, String street, String city, String state, String zipcode, int servingCount) {
         this.servings = servings;
         this.user = user;
         this.name = name;
         this.availableTime = availableTime;
         this.recipe = recipe;
         this.category = category;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zipcode = zipcode;
+        this.servingCount = servingCount;
     }
 
     public int getId() {
@@ -109,6 +136,38 @@ public class Meal {
 
     public void setServingCount(int servingCount) {
         this.servingCount = servingCount;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
     }
 }
 
