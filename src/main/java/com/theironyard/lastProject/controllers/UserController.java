@@ -25,7 +25,7 @@ public class UserController {
     @PostConstruct
     public void init() {
         if (users.count() == 0) {
-            userService.createUser("Steve", "test", 0);
+            userService.createUser("Keith", "admin", 0);
         }
     }
 
