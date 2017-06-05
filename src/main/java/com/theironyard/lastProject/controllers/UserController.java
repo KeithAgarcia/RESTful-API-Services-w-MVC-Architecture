@@ -3,6 +3,7 @@ package com.theironyard.lastProject.controllers;
 import com.theironyard.lastProject.entities.User;
 import com.theironyard.lastProject.repositories.UserRepository;
 import com.theironyard.lastProject.services.UserService;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,5 +33,10 @@ public class UserController {
     @RequestMapping(path = "/new-user", method = RequestMethod.POST)
     public void newUser(User user, String passwordConfirm, int token, boolean isAdmin) {
         userService.createUser(user.getUsername(), user.getPassword(), passwordConfirm, isAdmin, token);
+    }
+
+    @RequestMapping(path = "/select-user/{id}", method = RequestMethod.POST)
+    public User selectUser(@PathVariable("id") int id){
+        return users.findOne(id);
     }
 }
