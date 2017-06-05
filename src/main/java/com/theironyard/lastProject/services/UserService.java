@@ -31,7 +31,7 @@ public class UserService {
 
         if ((existingUser == null) && password.equals(passwordConfirmation)) {
             token = 5;
-            User u = new User(username, encoder.encode(password), token);
+            User u = new User(username, encoder.encode(password), phone, token);
 
             Authority authority = new Authority("ROLE_USER", u);
             users.save(u);

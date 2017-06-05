@@ -50,6 +50,7 @@ public class MealService {
             // update it with requestServing's eta.
             serving.setEta(requestServing.getEta());
             user.setToken(user.getToken() - 1);
+            meal.setServingCount(meal.getServingCount() - 1);
 
             serving.setUserEater(u);
 
