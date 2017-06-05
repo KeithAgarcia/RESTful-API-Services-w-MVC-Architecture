@@ -1,5 +1,7 @@
 package com.theironyard.lastProject.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -16,6 +18,10 @@ public class User {
     String username;
 
     @Column(nullable = false)
+    String phone;
+
+    @Column(nullable = false)
+    @JsonIgnore
     String password;
 
     @Column(nullable = false)
@@ -27,9 +33,10 @@ public class User {
     public User() {
     }
 
-    public User(String username, String password, int token) {
+    public User(String username, String password, String phone, int token) {
         this.username = username;
         this.password = password;
+        this.phone = phone;
         this.token = token;
         this.enabled = true;
     }
@@ -64,5 +71,21 @@ public class User {
 
     public void setToken(int token) {
         this.token = token;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

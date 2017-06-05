@@ -44,12 +44,15 @@ public class Meal {
     @Column(nullable = false)
     String zipcode;
 
+    @Column(nullable = false)
+    String add_info;
+
     public int servingCount;
 
     public Meal() {
     }
 
-    public Meal(List<Serving> servings, User user, String name, LocalDateTime availableTime, String recipe, String category, String street, String city, String state, String zipcode, int servingCount) {
+    public Meal(List<Serving> servings, User user, String name, LocalDateTime availableTime, String recipe, String category, String street, String city, String state, String zipcode, String add_info, int servingCount) {
         this.servings = servings;
         this.user = user;
         this.name = name;
@@ -60,6 +63,7 @@ public class Meal {
         this.city = city;
         this.state = state;
         this.zipcode = zipcode;
+        this.add_info = add_info;
         this.servingCount = servingCount;
     }
 
@@ -158,6 +162,14 @@ public class Meal {
 
     public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
+    }
+
+    public String getAdd_info() {
+        return add_info;
+    }
+
+    public void setAdd_info(String add_info) {
+        this.add_info = add_info;
     }
 }
 
