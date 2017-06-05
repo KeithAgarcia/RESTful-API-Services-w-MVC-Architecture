@@ -1,6 +1,7 @@
 package com.theironyard.lastProject.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 
@@ -21,26 +22,29 @@ public class User {
     String phone;
 
     @Column(nullable = false)
-    @JsonIgnore
     String password;
 
     @Column(nullable = false)
     boolean enabled;
 
     @Column
-    int token;
+    Integer token;
+
+    // used to confirm passwords on user creation
+    // NOT STORED IN DATABASE
+    String passwordConfirm;
 
     public User() {
     }
 
-    public User(String username, String password, int token){
+    public User(String username, String password, Integer token){
         this.username = username;
         this.password = password;
         this.enabled = true;
 
     }
 
-    public User(String username, String password, String phone, int token) {
+    public User(String username, String password, String phone, Integer token) {
         this.username = username;
         this.password = password;
         this.phone = phone;
@@ -56,10 +60,12 @@ public class User {
         this.username = username;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
+    @JsonProperty
     public void setPassword(String password) {
         this.password = password;
     }
@@ -70,14 +76,6 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
-    }
-
-    public int getToken() {
-        return token;
-    }
-
-    public void setToken(int token) {
-        this.token = token;
     }
 
     public String getPhone() {
@@ -94,5 +92,21 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Integer getToken() {
+        return token;
+    }
+
+    public void setToken(Integer token) {
+        this.token = token;
+    }
+
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
     }
 }

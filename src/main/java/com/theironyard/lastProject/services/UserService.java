@@ -22,11 +22,11 @@ public class UserService {
         this.authorities = authorities;
         this.encoder = encoder;
     }
-    public void createUser(String username, String password, String phone, int token) {
+    public void createUser(String username, String password, String phone, Integer token) {
         createUser(username, password, password, false, phone, token);
     }
 
-    public void createUser(String username, String password, String passwordConfirmation, boolean isAdmin, String phone, int token) {
+    public void createUser(String username, String password, String passwordConfirmation, boolean isAdmin, String phone, Integer token) {
         User existingUser = users.findFirstByUsername(username);
 
         if ((existingUser == null) && password.equals(passwordConfirmation)) {
