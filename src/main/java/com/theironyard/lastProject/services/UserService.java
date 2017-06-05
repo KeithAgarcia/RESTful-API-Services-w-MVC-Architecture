@@ -41,5 +41,8 @@ public class UserService {
                 authority = new Authority("ROLE_ADMIN", u);
                 authorities.save(authority);
             }
+        } else {
+            throw new IllegalArgumentException("User already exists");
         }
     }}
+//return  http serverlet respon`

@@ -6,6 +6,7 @@ import com.theironyard.lastProject.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by Keith on 6/3/17.
@@ -28,8 +29,12 @@ public class UserController {
     }
     @CrossOrigin
     @RequestMapping(path = "/new-user", method = RequestMethod.POST)
-    public void newUser(@RequestBody User user) {
-        userService.createUser(user.getUsername(), user.getPassword(), user.getPassword(), false, user.getPhone(), user.getToken());
+    public void newUser(@RequestBody User user, HttpServletResponse response) {
+        try {
+            userService.createUser(user.getUsername(), user.getPassword(), user.getPassword(), false, user.getPhone(), user.getToken());
+        } catch (IllegalArgumentException ex) {
+            response.setStatus(422);
+        }
     }
 
     @RequestMapping(path = "/select-user/{id}", method = RequestMethod.POST)
