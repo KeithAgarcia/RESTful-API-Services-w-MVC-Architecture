@@ -26,13 +26,13 @@ public class UserController {
     @PostConstruct
     public void init() {
         if (users.count() == 0) {
-            userService.createUser("Keith", "admin", 0);
+            userService.createUser("Keith", "admin","704-578-5872", 0);
         }
     }
 
     @RequestMapping(path = "/new-user", method = RequestMethod.POST)
-    public void newUser(User user, String passwordConfirm, int token, boolean isAdmin) {
-        userService.createUser(user.getUsername(), user.getPassword(), passwordConfirm, isAdmin, token);
+    public void newUser(User user, String passwordConfirm, int token, String phone, boolean isAdmin) {
+        userService.createUser(user.getUsername(), user.getPassword(), passwordConfirm, isAdmin, phone, token);
     }
 
     @RequestMapping(path = "/select-user/{id}", method = RequestMethod.POST)

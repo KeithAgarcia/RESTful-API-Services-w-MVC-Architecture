@@ -17,7 +17,7 @@ public class User {
     @Column(nullable = false, unique = true)
     String username;
 
-    @Column(nullable = false)
+    @Column
     String phone;
 
     @Column(nullable = false)
@@ -33,13 +33,20 @@ public class User {
     public User() {
     }
 
+    public User(String username, String password, int token){
+        this.username = username;
+        this.password = password;
+        this.enabled = true;
+
+    }
+
     public User(String username, String password, String phone, int token) {
         this.username = username;
         this.password = password;
         this.phone = phone;
         this.token = token;
         this.enabled = true;
-    }
+   }
 
     public String getUsername() {
         return username;
