@@ -26,7 +26,7 @@ public class UserController {
             userService.createUser("Keith", "admin","704-578-5872", 5);
         }
     }
-
+    @CrossOrigin
     @RequestMapping(path = "/new-user", method = RequestMethod.POST)
     public void newUser(@RequestBody User user) {
         userService.createUser(user.getUsername(), user.getPassword(), user.getPassword(), false, user.getPhone(), user.getToken());
