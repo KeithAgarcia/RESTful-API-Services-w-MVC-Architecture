@@ -52,7 +52,7 @@ public class LastProjectApplication extends WebSecurityConfigurerAdapter {
 				.anyRequest().authenticated()
 				.and()
 				.formLogin()
-//				.loginPage("/")
+				.loginPage("/login")
 				.permitAll()
 				.and()
 				.logout()
@@ -61,7 +61,7 @@ public class LastProjectApplication extends WebSecurityConfigurerAdapter {
 				.and()
 				.csrf().disable();
 
-		http.authorizeRequests().antMatchers("/", "/**").permitAll().and().csrf().disable();
+//		http.authorizeRequests().antMatchers("/", "/**").permitAll().and().csrf().disable();
 	}
 
 	@Autowired
