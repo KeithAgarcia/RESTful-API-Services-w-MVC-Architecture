@@ -48,7 +48,7 @@ public class LastProjectApplication extends WebSecurityConfigurerAdapter {
 	public void configure(HttpSecurity http) throws Exception{
 		http
 				.authorizeRequests()
-//				.antMatchers("/", "/home", "/new-user").permitAll()
+				.antMatchers("/", "/home", "/new-user").permitAll()
 				.anyRequest().authenticated()
 				.and()
 				.formLogin()
