@@ -4,6 +4,7 @@ import com.theironyard.lastProject.entities.Meal;
 import com.theironyard.lastProject.entities.Serving;
 import com.theironyard.lastProject.entities.User;
 import com.theironyard.lastProject.repositories.MealRepository;
+import com.theironyard.lastProject.repositories.ServingRepository;
 import com.theironyard.lastProject.repositories.UserRepository;
 import com.theironyard.lastProject.services.MealService;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ public class MealController {
     MealRepository meals;
     MealService mealService;
     UserRepository users;
+    ServingRepository servings;
 
     public MealController(MealRepository meals, MealService mealService, UserRepository users) {
         this.users = users;
@@ -57,9 +59,20 @@ public class MealController {
        return serving.getMeal();
     }
 
+
     @CrossOrigin
     @RequestMapping(path = "/user-meals/{id}", method = RequestMethod.GET)
     public List<Meal> userMeals( @PathVariable("id")  User user) {
         return (List<Meal>) meals.findAllByUser(user);
     }
+
+    @CrossOrigin
+    @RequestMapping(path = "/complete-meal/{id}", method = RequestMethod.PUT)
+    public void confirmMeal(@PathVariable("id") int id){
+        User u = users.findOne(1);
+        Meal m = meals.findOne(id);
+
+        mealService.completeServing(u, m);
+    }
+
 }

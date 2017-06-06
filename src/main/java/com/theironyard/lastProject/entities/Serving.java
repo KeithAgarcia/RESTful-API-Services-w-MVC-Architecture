@@ -22,6 +22,9 @@ public class Serving {
     @Column
     LocalDateTime eta;
 
+    @Column
+    Boolean complete;
+
     public Serving() {
     }
 
@@ -37,6 +40,7 @@ public class Serving {
         this.meal = meal;
         this.user = userEater;
         this.eta = eta;
+        this.complete = false;
     }
 
     public int getId() {
@@ -69,5 +73,13 @@ public class Serving {
 
     public void setEta(LocalDateTime eta) {
         this.eta = eta;
+    }
+
+    public Boolean getComplete() {
+        return complete;
+    }
+
+    public void setComplete(Boolean complete) {
+        this.complete = complete;
     }
 }

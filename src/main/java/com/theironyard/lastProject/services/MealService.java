@@ -8,6 +8,8 @@ import com.theironyard.lastProject.repositories.ServingRepository;
 import com.theironyard.lastProject.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by Keith on 5/31/17.
  */
@@ -58,5 +60,13 @@ public class MealService {
             users.save(u);
             servings.save(serving);
         }
+    }
+
+    public void completeServing(User user, Meal meal){
+        List <Serving> userServings= servings.findByUserAndMeal(user, meal);
+        for(Serving s : userServings) {
+            s.setComplete(true);
+        }
+        servings.save(userServings);
     }
 }
