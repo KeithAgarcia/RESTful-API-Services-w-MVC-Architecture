@@ -5,7 +5,6 @@ import com.theironyard.lastProject.entities.Serving;
 import com.theironyard.lastProject.entities.User;
 import org.springframework.data.repository.CrudRepository;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -17,8 +16,10 @@ public interface ServingRepository extends CrudRepository<Serving, Integer> {
     Serving findFirstByMealAndEtaIsNull(Meal m);
 
     // finds the first serving by meal AND eta is a specific value
-    Serving findFirstByMealAndEta(Meal m, LocalDateTime eta);
 
     List<Serving> findByUserAndMeal(User user, Meal m);
+
+    List<Serving> findAllByUserAndMealAndCompleteIsNull(User user, Meal m);
+    List<Serving> findByUser(User u);
 
 }

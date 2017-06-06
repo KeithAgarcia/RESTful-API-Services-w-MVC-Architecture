@@ -23,10 +23,11 @@ public class MealController {
     UserRepository users;
     ServingRepository servings;
 
-    public MealController(MealRepository meals, MealService mealService, UserRepository users) {
+    public MealController(MealRepository meals, MealService mealService, UserRepository users, ServingRepository servings) {
         this.users = users;
         this.mealService = mealService;
         this.meals = meals;
+        this.servings = servings;
     }
 
     @CrossOrigin
@@ -67,12 +68,23 @@ public class MealController {
     }
 
     @CrossOrigin
-    @RequestMapping(path = "/complete-meal/{id}", method = RequestMethod.PUT)
+    @RequestMapping(path = "/update-complete/{id}", method = RequestMethod.PUT)
     public void confirmMeal(@PathVariable("id") int id){
         User u = users.findOne(1);
         Meal m = meals.findOne(id);
-
         mealService.completeServing(u, m);
     }
+
+    @CrossOrigin
+    @RequestMapping(path = "/meals-complete/{id}", method = RequestMethod.GET)
+    public List<Meal> completeMeals(@PathVariable("id") int id){
+        User u = users.findOne(id);
+        List<Meal> servingMeals = meals.findDistinctByServings(u);
+
+        return servingMeals;
+//        return (List<Serving>) servings.findAllByUserAndMealAndCompleteIsNull(u, meal);
+
+    }
+
 
 }

@@ -22,8 +22,8 @@ public class Serving {
     @Column
     LocalDateTime eta;
 
-    @Column
-    Boolean complete;
+    @Column(nullable = false)
+    boolean complete;
 
     public Serving() {
     }

@@ -33,6 +33,7 @@ public class MealService {
             Serving serving = new Serving(meal);
             User user = users.findFirstByUsername(u.getUsername());
             user.setToken(user.getToken() + 1);
+            serving.setUserEater(u);
             servings.save(serving);
             users.save(u);
         }
