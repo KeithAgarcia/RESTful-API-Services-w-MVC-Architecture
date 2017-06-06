@@ -1,6 +1,7 @@
 package com.theironyard.lastProject.controllers;
 
 import com.theironyard.lastProject.entities.User;
+import com.theironyard.lastProject.repositories.MealRepository;
 import com.theironyard.lastProject.repositories.UserRepository;
 import com.theironyard.lastProject.services.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 public class UserController {
     UserService userService;
     UserRepository users;
+    MealRepository meals;
 
     public UserController(UserService userService, UserRepository users) {
         this.users = users;

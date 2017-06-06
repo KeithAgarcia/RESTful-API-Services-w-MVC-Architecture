@@ -56,4 +56,10 @@ public class MealController {
 
        return serving.getMeal();
     }
+
+    @CrossOrigin
+    @RequestMapping(path = "/user-meals/{id}", method = RequestMethod.GET)
+    public List<Meal> userMeals( @PathVariable("id")  User user) {
+        return (List<Meal>) meals.findAllByUser(user);
+    }
 }
