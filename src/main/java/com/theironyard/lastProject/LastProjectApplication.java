@@ -52,7 +52,7 @@ public class LastProjectApplication extends WebSecurityConfigurerAdapter {
 				.anyRequest().authenticated()
 				.and()
 				.formLogin()
-				.loginPage("/login")
+//				.loginPage("/login")
 				.permitAll()
 				.and()
 				.logout()
