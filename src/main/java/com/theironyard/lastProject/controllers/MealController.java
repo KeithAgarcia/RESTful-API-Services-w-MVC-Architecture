@@ -33,7 +33,7 @@ public class MealController {
     @CrossOrigin
     @RequestMapping(path = "/new-meal", method = RequestMethod.POST)
     public  Meal saveMeal(@RequestBody Meal meal){
-        User u = users.findOne(1);
+        User u = users.findOne(meal.getUser().getId());
         mealService.saveMeal(meal, u);
         return meal;
     }
