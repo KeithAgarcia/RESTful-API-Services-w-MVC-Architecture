@@ -34,6 +34,10 @@ public class Serving {
         this.meal = meal;
     }
 
+    public Serving(LocalDateTime eta){
+        this.eta = eta;
+    }
+
     public Serving(LocalDateTime eta, String servingAmt){
         this.servingAmt = servingAmt;
         this.eta = eta;
