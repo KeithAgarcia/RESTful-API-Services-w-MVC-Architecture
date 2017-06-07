@@ -7,6 +7,7 @@ import com.theironyard.lastProject.repositories.MealRepository;
 import com.theironyard.lastProject.repositories.ServingRepository;
 import com.theironyard.lastProject.repositories.UserRepository;
 import com.theironyard.lastProject.services.MealService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,8 +34,10 @@ public class MealController {
     @CrossOrigin
     @RequestMapping(path = "/new-meal", method = RequestMethod.POST)
     public  Meal saveMeal(@RequestBody Meal meal){
-        User u = users.findOne(meal.getUser().getId());
-        mealService.saveMeal(meal, u);
+        User auth = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        meal.setUser(auth);
+//        User u = users.findOne(meal.getUser().getId());
+        mealService.saveMeal(meal, auth);
         return meal;
     }
 
@@ -52,8 +55,8 @@ public class MealController {
 
     @CrossOrigin
     @RequestMapping(path = "/reserve-serving/{id}", method = RequestMethod.PUT)
-    public Meal reserveServing(@RequestBody Serving serving, @PathVariable ("id") int id, User user){
-        User u = users.findOne(user.getId());
+    public Meal reserveServing(@RequestBody Serving serving, @PathVariable ("id") int id){
+        User u = users.findOne(serving.getUserEater().getId());
         Meal m = meals.findOne(id);
         mealService.reserveServing(m, u, serving);
 
@@ -69,8 +72,8 @@ public class MealController {
 
     @CrossOrigin
     @RequestMapping(path = "/update-complete/{id}", method = RequestMethod.PUT)
-    public void confirmMeal(@PathVariable("id") int id, User user){
-        User u = users.findOne(user.getId());
+    public void confirmMeal(@PathVariable("id") int id, Serving serving){
+        User u = users.findOne(serving.getUserEater().getId());
         Meal m = meals.findOne(id);
         mealService.completeServing(u, m);
     }
