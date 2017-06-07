@@ -46,7 +46,7 @@ public class LastProjectApplication extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception{
-		http
+//		http
 //				.authorizeRequests()
 //				.antMatchers("/", "/home", "/new-user").permitAll()
 //				.anyRequest().authenticated()
