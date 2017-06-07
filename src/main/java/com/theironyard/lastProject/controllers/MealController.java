@@ -80,6 +80,7 @@ public class MealController {
     public void confirmMeal(@PathVariable("id") int id, Serving serving){
         org.springframework.security.core.userdetails.User auth = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User u = users.findFirstByUsername(auth.getUsername());
+        serving.setUserEater(u);
         Meal m = meals.findOne(id);
         mealService.completeServing(u, m);
     }
