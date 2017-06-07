@@ -18,6 +18,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -58,23 +59,31 @@ public class LastProjectApplication extends WebSecurityConfigurerAdapter {
 
 		configuration.setAllowCredentials(true);
 
-		configuration.setAllowedHeaders(Stream.of("Authorization", "Cache-Control", "Content-Type").collect(Collectors.toList()));
+		configuration.setAllowedHeaders(Stream.of("*").collect(Collectors.toList()));
 
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
 
 		return source;
 	}
+
+
 	@Override
 	public void configure(HttpSecurity http) throws Exception{
-		http.cors().and()
+			http.cors().and()
+				.exceptionHandling().authenticationEntryPoint((request, response, exception) -> {
+					if (exception != null) {
+						response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+					}
+				}).and()
 				.authorizeRequests()
 				.antMatchers("/", "/home", "/new-user").permitAll()
 				.anyRequest().authenticated()
 				.and()
 				.formLogin()
-				.loginPage("/login")
-				.permitAll()
+					.successHandler((a, b, c) -> { })
+					.loginPage("/login")
+					.permitAll()
 				.and()
 				.logout()
 				.logoutUrl("/logout")
