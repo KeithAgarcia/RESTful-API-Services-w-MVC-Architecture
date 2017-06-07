@@ -46,7 +46,7 @@ public class LastProjectApplication extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception{
-//		http
+		http
 //				.authorizeRequests()
 //				.antMatchers("/", "/home", "/new-user").permitAll()
 //				.anyRequest().authenticated()
@@ -59,9 +59,9 @@ public class LastProjectApplication extends WebSecurityConfigurerAdapter {
 ////				.logoutUrl("/logout")
 //				.permitAll()
 //				.and()
-//				.csrf().disable();
+				.csrf().disable();
 
-		http.authorizeRequests().antMatchers("/", "/**").permitAll().and().csrf().disable();
+//		http.authorizeRequests().antMatchers("/", "/**").permitAll().and().csrf().disable();
 	}
 
 	@Autowired

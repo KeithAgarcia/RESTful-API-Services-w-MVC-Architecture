@@ -88,6 +88,5 @@ public class LastProjectApplicationTests {
 
 		Assert.assertTrue(meals.count() == 1);
 	}
-`
 }
 
