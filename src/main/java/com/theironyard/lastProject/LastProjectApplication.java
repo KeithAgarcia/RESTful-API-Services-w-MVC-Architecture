@@ -3,6 +3,7 @@ package com.theironyard.lastProject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.sun.tools.javac.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,6 +15,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.sql.DataSource;
 
@@ -44,21 +48,38 @@ public class LastProjectApplication extends WebSecurityConfigurerAdapter {
 		return mapper;
 	}
 
+
+	@Bean
+	public CorsConfigurationSource corsConfiguration() {
+		final CorsConfiguration configuration = new CorsConfiguration();
+
+		configuration.setAllowedOrigins(List.of("*"));
+		configuration.setAllowedMethods(List.of("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH"));
+
+		configuration.setAllowCredentials(true);
+
+		configuration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
+
+		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+
+		return source;
+	}
 	@Override
 	public void configure(HttpSecurity http) throws Exception{
-		http
-//				.authorizeRequests()
-//				.antMatchers("/", "/home", "/new-user").permitAll()
-//				.anyRequest().authenticated()
-//				.and()
-//				.formLogin()
-////				.loginPage("/login")
-//				.permitAll()
-//				.and()
-//				.logout()
-////				.logoutUrl("/logout")
-//				.permitAll()
-//				.and()
+		http.cors().and()
+				.authorizeRequests()
+				.antMatchers("/", "/home", "/new-user").permitAll()
+				.anyRequest().authenticated()
+				.and()
+				.formLogin()
+				.loginPage("/login")
+				.permitAll()
+				.and()
+				.logout()
+				.logoutUrl("/logout")
+				.permitAll()
+				.and()
 				.csrf().disable();
 
 //		http.authorizeRequests().antMatchers("/", "/**").permitAll().and().csrf().disable();
