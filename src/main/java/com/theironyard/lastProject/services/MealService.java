@@ -49,7 +49,9 @@ public class MealService {
         User user = users.findFirstByUsername(u.getUsername());
 
         // if there is a serving that matches your criteria,
-        if(serving!= null) {
+        for(int i = 0; i < Integer.valueOf(serving.getServingAmt()); i++){
+
+            if(serving!= null) {
             // update it with requestServing's eta.
             serving.setEta(requestServing.getEta());
             user.setToken(user.getToken() - 1);
@@ -60,6 +62,7 @@ public class MealService {
             // save the existing serving.
             users.save(u);
             servings.save(serving);
+            }
         }
     }
 

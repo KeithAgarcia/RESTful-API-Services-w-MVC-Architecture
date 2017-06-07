@@ -25,6 +25,8 @@ public class Serving {
     @Column(nullable = false)
     boolean complete;
 
+    String servingAmt;
+
     public Serving() {
     }
 
@@ -32,7 +34,8 @@ public class Serving {
         this.meal = meal;
     }
 
-    public Serving(LocalDateTime eta){
+    public Serving(LocalDateTime eta, String servingAmt){
+        this.servingAmt = servingAmt;
         this.eta = eta;
     }
 
@@ -81,5 +84,21 @@ public class Serving {
 
     public void setComplete(Boolean complete) {
         this.complete = complete;
+    }
+
+    public boolean isComplete() {
+        return complete;
+    }
+
+    public void setComplete(boolean complete) {
+        this.complete = complete;
+    }
+
+    public String getServingAmt() {
+        return servingAmt;
+    }
+
+    public void setServingAmt(String servingAmt) {
+        this.servingAmt = servingAmt;
     }
 }
