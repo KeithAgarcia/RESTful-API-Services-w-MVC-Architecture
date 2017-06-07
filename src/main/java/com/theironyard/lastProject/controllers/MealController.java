@@ -35,6 +35,10 @@ public class MealController {
     @RequestMapping(path = "/new-meal", method = RequestMethod.POST)
     public  Meal saveMeal(@RequestBody Meal meal){
         User auth = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        System.out.println(meal.getName());
+        System.out.println(auth.getUsername());
+
         meal.setUser(auth);
 //        User u = users.findOne(meal.getUser().getId());
         mealService.saveMeal(meal, auth);
