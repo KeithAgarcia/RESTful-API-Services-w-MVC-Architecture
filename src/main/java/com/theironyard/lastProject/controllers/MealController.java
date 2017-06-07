@@ -52,8 +52,8 @@ public class MealController {
 
     @CrossOrigin
     @RequestMapping(path = "/reserve-serving/{id}", method = RequestMethod.PUT)
-    public Meal reserveServing(@RequestBody Serving serving, @PathVariable ("id") int id){
-        User u = users.findOne(1);
+    public Meal reserveServing(@RequestBody Serving serving, @PathVariable ("id") int id, User user){
+        User u = users.findOne(user.getId());
         Meal m = meals.findOne(id);
         mealService.reserveServing(m, u, serving);
 
@@ -69,8 +69,8 @@ public class MealController {
 
     @CrossOrigin
     @RequestMapping(path = "/update-complete/{id}", method = RequestMethod.PUT)
-    public void confirmMeal(@PathVariable("id") int id){
-        User u = users.findOne(1);
+    public void confirmMeal(@PathVariable("id") int id, User user){
+        User u = users.findOne(user.getId());
         Meal m = meals.findOne(id);
         mealService.completeServing(u, m);
     }
@@ -80,10 +80,7 @@ public class MealController {
     public List<Meal> completeMeals(@PathVariable("id") int id){
         User u = users.findOne(id);
         List<Meal> servingMeals = meals.findDistinctByServings(u);
-
         return servingMeals;
-//        return (List<Serving>) servings.findAllByUserAndMealAndCompleteIsNull(u, meal);
-
     }
 
 
