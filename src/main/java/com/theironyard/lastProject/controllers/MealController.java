@@ -7,7 +7,6 @@ import com.theironyard.lastProject.repositories.MealRepository;
 import com.theironyard.lastProject.repositories.ServingRepository;
 import com.theironyard.lastProject.repositories.UserRepository;
 import com.theironyard.lastProject.services.MealService;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,14 +33,14 @@ public class MealController {
     @CrossOrigin
     @RequestMapping(path = "/new-meal", method = RequestMethod.POST)
     public  Meal saveMeal(@RequestBody Meal meal){
-        User auth = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        User auth = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         System.out.println(meal.getName());
-        System.out.println(auth.getUsername());
+//        System.out.println(auth.getUsername());
 
-        meal.setUser(auth);
+//        meal.setUser(auth);
 //        User u = users.findOne(meal.getUser().getId());
-        mealService.saveMeal(meal, auth);
+//        mealService.saveMeal(meal, auth);
         return meal;
     }
 
