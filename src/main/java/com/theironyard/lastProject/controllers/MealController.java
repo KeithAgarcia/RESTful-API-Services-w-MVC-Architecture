@@ -58,9 +58,11 @@ public class MealController {
     @CrossOrigin
     @RequestMapping(path = "/reserve-serving/{id}", method = RequestMethod.PUT)
     public Meal reserveServing(@RequestBody Serving serving, @PathVariable ("id") int id){
-        User u = users.findOne(serving.getUserEater().getId());
+        org.springframework.security.core.userdetails.User auth = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User u = users.findFirstByUsername(auth.getUsername());
         Meal m = meals.findOne(id);
         mealService.reserveServing(m, u, serving);
+
 
        return serving.getMeal();
     }
@@ -75,7 +77,8 @@ public class MealController {
     @CrossOrigin
     @RequestMapping(path = "/update-complete/{id}", method = RequestMethod.PUT)
     public void confirmMeal(@PathVariable("id") int id, Serving serving){
-        User u = users.findOne(serving.getUserEater().getId());
+        org.springframework.security.core.userdetails.User auth = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User u = users.findFirstByUsername(auth.getUsername());
         Meal m = meals.findOne(id);
         mealService.completeServing(u, m);
     }
