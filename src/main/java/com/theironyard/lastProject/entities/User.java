@@ -30,6 +30,12 @@ public class User {
     @Column
     Integer token;
 
+    @Column
+    String rating;
+
+    @Column
+    Integer totalRatings;
+
     // used to confirm passwords on user creation
     // NOT STORED IN DATABASE
     String passwordConfirm;
@@ -44,17 +50,25 @@ public class User {
 
     }
 
-    public User(String username, String password, String phone, Integer token) {
+    public User(String username, String password, String phone, Integer token, String rating, Integer totalRatings) {
         this.username = username;
         this.password = password;
         this.phone = phone;
         this.token = token;
+        this.rating = rating;
+        this.totalRatings = totalRatings;
         this.enabled = true;
    }
 
     public String getUsername() {
         return username;
     }
+
+    public User(String rating) {
+        this.rating = rating;
+    }
+
+
 
     public void setUsername(String username) {
         this.username = username;
@@ -108,5 +122,21 @@ public class User {
 
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public Integer getTotalRatings() {
+        return totalRatings;
+    }
+
+    public void setTotalRatings(Integer totalRatings) {
+        this.totalRatings = totalRatings;
     }
 }

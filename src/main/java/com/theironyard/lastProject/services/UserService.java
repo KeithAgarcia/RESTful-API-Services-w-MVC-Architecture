@@ -22,16 +22,17 @@ public class UserService {
         this.authorities = authorities;
         this.encoder = encoder;
     }
-    public void createUser(String username, String password, String phone, Integer token) {
-        createUser(username, password, password, false, phone, token);
+    public void createUser(String username, String password, String phone, Integer token, String rating, Integer totalRating) {
+        createUser(username, password, password, false, phone, token, rating, totalRating);
     }
 
-    public void createUser(String username, String password, String passwordConfirmation, boolean isAdmin, String phone, Integer token) {
+    public void createUser(String username, String password, String passwordConfirmation, boolean isAdmin, String phone, Integer token, String rating, Integer totalRating) {
         User existingUser = users.findFirstByUsername(username);
 
         if ((existingUser == null) && password.equals(passwordConfirmation)) {
             token = 5;
-            User u = new User(username, encoder.encode(password), phone, token);
+            totalRating = 0;
+            User u = new User(username, encoder.encode(password), phone, token, rating, totalRating);
 
             Authority authority = new Authority("ROLE_USER", u);
             users.save(u);
@@ -44,5 +45,13 @@ public class UserService {
         } else {
             throw new IllegalArgumentException("User already exists");
         }
-    }}
+    }
+
+//    public void rateUser(User u, Integer rating){
+//        rating = (Integer.valueOf(u.getRating())/ )
+//
+//
+//    }
+    }
+
 //return  http serverlet respon`

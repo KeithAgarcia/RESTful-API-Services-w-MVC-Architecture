@@ -64,7 +64,6 @@ public class MealController {
         Meal m = meals.findOne(id);
         mealService.reserveServing(m, u, serving);
 
-
        return serving.getMeal();
     }
 

@@ -26,14 +26,14 @@ public class UserController {
     @PostConstruct
     public void init() {
         if (users.count() == 0) {
-            userService.createUser("Keith", "admin","704-578-5872", 5);
+            userService.createUser("Keith", "admin","704-578-5872", 5, "0", 0);
         }
     }
     @CrossOrigin
     @RequestMapping(path = "/new-user", method = RequestMethod.POST)
     public void newUser(@RequestBody User user, HttpServletResponse response) {
         try {
-            userService.createUser(user.getUsername(), user.getPassword(), user.getPassword(), false, user.getPhone(), user.getToken());
+            userService.createUser(user.getUsername(), user.getPassword(), user.getPassword(), false, user.getPhone(), user.getToken(), user.getRating(), user.getTotalRatings());
         } catch (IllegalArgumentException ex) {
             response.setStatus(422);
         }
@@ -48,4 +48,9 @@ public class UserController {
     public User selectUser(@PathVariable("id") int id){
         return users.findOne(id);
     }
+
+//    @RequestMapping(path = "/rate-user/{id}", method = RequestMethod.POST)
+//    public User rateUser(@PathVariable("id") int id) {
+//
+//    }
 }
