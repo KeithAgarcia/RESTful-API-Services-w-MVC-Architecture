@@ -60,6 +60,7 @@ public class MealController {
     public Meal reserveServing(@RequestBody Serving serving, @PathVariable ("id") int id){
         org.springframework.security.core.userdetails.User auth = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User u = users.findFirstByUsername(auth.getUsername());
+        serving.setUserEater(u);
         Meal m = meals.findOne(id);
         mealService.reserveServing(m, u, serving);
 
