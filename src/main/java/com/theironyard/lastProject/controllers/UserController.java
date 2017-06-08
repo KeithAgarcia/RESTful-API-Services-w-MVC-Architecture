@@ -27,7 +27,7 @@ public class UserController {
     @PostConstruct
     public void init() {
         if (users.count() == 0) {
-            userService.createUser("Keith", "admin","704-578-5872", 5, "0", 0);
+            userService.createUser("Keith", "admin","704-578-5872", 5, 0, 0);
         }
     }
     @CrossOrigin

@@ -31,7 +31,7 @@ public class User {
     Integer token;
 
     @Column
-    String rating;
+    Integer rating;
 
     @Column
     Integer totalRatings;
@@ -53,7 +53,7 @@ public class User {
 
     }
 
-    public User(String username, String password, String phone, Integer token, String rating, Integer totalRatings) {
+    public User(String username, String password, String phone, Integer token, Integer rating, Integer totalRatings) {
         this.username = username;
         this.password = password;
         this.phone = phone;
@@ -63,7 +63,7 @@ public class User {
         this.enabled = true;
    }
 
-    public User(String username, String phone, String password, boolean enabled, Integer token, String rating, Integer totalRatings, String passwordConfirm, String newRating) {
+    public User(String username, String phone, String password, boolean enabled, Integer token, Integer rating, Integer totalRatings, String passwordConfirm, String newRating) {
         this.username = username;
         this.phone = phone;
         this.password = password;
@@ -79,7 +79,7 @@ public class User {
         return username;
     }
 
-    public User(String rating) {
+    public User(Integer rating) {
         this.rating = rating;
     }
 
@@ -139,11 +139,11 @@ public class User {
         this.passwordConfirm = passwordConfirm;
     }
 
-    public String getRating() {
+    public Integer getRating() {
         return rating;
     }
 
-    public void setRating(String rating) {
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
 

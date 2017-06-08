@@ -22,11 +22,11 @@ public class UserService {
         this.authorities = authorities;
         this.encoder = encoder;
     }
-    public void createUser(String username, String password, String phone, Integer token, String rating, Integer totalRating) {
+    public void createUser(String username, String password, String phone, Integer token, Integer rating, Integer totalRating) {
         createUser(username, password, password, false, phone, token, rating, totalRating);
     }
 
-    public void createUser(String username, String password, String passwordConfirmation, boolean isAdmin, String phone, Integer token, String rating, Integer totalRating) {
+    public void createUser(String username, String password, String passwordConfirmation, boolean isAdmin, String phone, Integer token, Integer rating, Integer totalRating) {
         User existingUser = users.findFirstByUsername(username);
 
         if ((existingUser == null) && password.equals(passwordConfirmation)) {
@@ -51,7 +51,7 @@ public class UserService {
         u.setNewRating(user.getNewRating());
 
         u.setTotalRatings(u.getTotalRatings() + 1);
-        u.setRating(String.valueOf(Integer.valueOf(u.getRating()) * u.getTotalRatings() + Integer.valueOf(u.getNewRating()) / (u.getTotalRatings())));
+        u.setRating((u.getRating() * (u.getTotalRatings() - 1) + Integer.valueOf(u.getNewRating()))/u.getTotalRatings());
 
         users.save(u);
     }
