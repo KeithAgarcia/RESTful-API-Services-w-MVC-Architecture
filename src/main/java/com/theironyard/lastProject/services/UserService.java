@@ -50,6 +50,9 @@ public class UserService {
     public void rateUser(User user, User u, String newRating){
         u.setNewRating(user.getNewRating());
 
+        u.setTotalRatings(u.getTotalRatings() + 1);
+        u.setRating(String.valueOf(Integer.valueOf(u.getRating()) * u.getTotalRatings() + Integer.valueOf(u.getNewRating()) / (u.getTotalRatings())));
+
         users.save(u);
     }
 }
