@@ -47,8 +47,9 @@ public class UserService {
         }
     }
 
-    public void rateUser(User user){
-        user = users.findFirstByUsername(user.getUsername());
+    public void rateUser(User user, User u, String newRating){
+        u.setNewRating(user.getNewRating());
+
         users.save(user);
     }
 }

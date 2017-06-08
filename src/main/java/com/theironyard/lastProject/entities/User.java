@@ -45,6 +45,7 @@ public class User {
     public User() {
     }
 
+
     public User(String username, String password, Integer token){
         this.username = username;
         this.password = password;

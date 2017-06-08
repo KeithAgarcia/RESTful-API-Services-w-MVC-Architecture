@@ -4,6 +4,7 @@ import com.theironyard.lastProject.entities.User;
 import com.theironyard.lastProject.repositories.MealRepository;
 import com.theironyard.lastProject.repositories.UserRepository;
 import com.theironyard.lastProject.services.UserService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
@@ -50,10 +51,12 @@ public class UserController {
     }
 
     @RequestMapping(path = "/rate-user/{id}", method = RequestMethod.PUT)
-    public void rateUser(@PathVariable("id") int id, User user) {
-        user = users.findOne(id);
+    public void rateUser(@RequestBody User user, @PathVariable("id") int id) {
+        org.springframework.security.core.userdetails.User auth = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User u = users.findFirstByUsername(auth.getUsername());
 
-        userService.rateUser(user);
+
+        userService.rateUser(user, u, user.getNewRating());
 
     }
 
