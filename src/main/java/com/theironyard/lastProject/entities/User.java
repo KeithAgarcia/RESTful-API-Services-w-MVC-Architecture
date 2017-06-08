@@ -40,6 +40,8 @@ public class User {
     // NOT STORED IN DATABASE
     String passwordConfirm;
 
+    String newRating;
+
     public User() {
     }
 
@@ -59,6 +61,18 @@ public class User {
         this.totalRatings = totalRatings;
         this.enabled = true;
    }
+
+    public User(String username, String phone, String password, boolean enabled, Integer token, String rating, Integer totalRatings, String passwordConfirm, String newRating) {
+        this.username = username;
+        this.phone = phone;
+        this.password = password;
+        this.enabled = enabled;
+        this.token = token;
+        this.rating = rating;
+        this.totalRatings = totalRatings;
+        this.passwordConfirm = passwordConfirm;
+        this.newRating = newRating;
+    }
 
     public String getUsername() {
         return username;
@@ -138,5 +152,13 @@ public class User {
 
     public void setTotalRatings(Integer totalRatings) {
         this.totalRatings = totalRatings;
+    }
+
+    public String getNewRating() {
+        return newRating;
+    }
+
+    public void setNewRating(String newRating) {
+        this.newRating = newRating;
     }
 }

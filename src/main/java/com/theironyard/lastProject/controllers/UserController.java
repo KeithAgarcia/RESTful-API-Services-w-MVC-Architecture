@@ -49,8 +49,13 @@ public class UserController {
         return users.findOne(id);
     }
 
-//    @RequestMapping(path = "/rate-user/{id}", method = RequestMethod.POST)
-//    public User rateUser(@PathVariable("id") int id) {
-//
+    @RequestMapping(path = "/rate-user/{id}", method = RequestMethod.PUT)
+    public void rateUser(@PathVariable("id") int id, User user) {
+        user = users.findOne(id);
+
+        userService.rateUser(user);
+
+    }
+
 //    }
 }

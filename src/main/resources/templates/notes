@@ -22,3 +22,5 @@ App ID
 
 Secret
 c8ee0865565b4812c0a78d384565234b
+
+(Integer.valueOf(user.getRating()) * user.getTotalRatings() + Integer.valueOf(user.getNewRating()) / (user.getTotalRatings() + 1));

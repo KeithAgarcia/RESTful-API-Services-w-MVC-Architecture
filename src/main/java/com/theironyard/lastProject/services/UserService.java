@@ -47,11 +47,10 @@ public class UserService {
         }
     }
 
-//    public void rateUser(User u, Integer rating){
-//        rating = (Integer.valueOf(u.getRating())/ )
-//
-//
-//    }
+    public void rateUser(User user){
+        user = users.findFirstByUsername(user.getUsername());
+        users.save(user);
     }
+}
 
 //return  http serverlet respon`
