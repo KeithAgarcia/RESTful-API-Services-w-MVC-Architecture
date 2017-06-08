@@ -30,11 +30,11 @@ public class User {
     @Column
     Integer token;
 
-    @Column
-    Integer rating;
+    @Column(nullable = false)
+    int rating;
 
-    @Column
-    Integer totalRatings;
+    @Column(nullable = false)
+    int totalRatings;
 
     // used to confirm passwords on user creation
     // NOT STORED IN DATABASE
