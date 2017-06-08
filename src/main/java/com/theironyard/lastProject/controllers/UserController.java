@@ -31,6 +31,7 @@ public class UserController {
             userService.createUser("Mac", "admin", "704-444-1068", 5, 0, 0);
         }
     }
+
     @CrossOrigin
     @RequestMapping(path = "/new-user", method = RequestMethod.POST)
     public void newUser(@RequestBody User user, HttpServletResponse response) {
@@ -44,13 +45,15 @@ public class UserController {
 //    @CrossOrigin
 //    @RequestMapping(path = "/", method = RequestMethod.GET)
 //    public void thing() {
-//    }
+//    }gi
 
+    @CrossOrigin
     @RequestMapping(path = "/select-user/{id}", method = RequestMethod.POST)
     public User selectUser(@PathVariable("id") int id){
         return users.findOne(id);
     }
 
+    @CrossOrigin
     @RequestMapping(path = "/rate-user/{id}", method = RequestMethod.PUT)
     public void rateUser(@PathVariable("id") int id, @RequestBody int rating) {
 //        org.springframework.security.core.userdetails.User auth = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
