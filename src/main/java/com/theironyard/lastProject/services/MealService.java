@@ -32,7 +32,7 @@ public class MealService {
         for(int i = 0; i < meal.getServingCount(); i++){
             Serving serving = new Serving(meal);
             User user = users.findFirstByUsername(u.getUsername());
-            user.setToken(user.getToken() + 1);
+//            user.setToken(user.getToken() + 1);
             serving.setUserEater(u);
             servings.save(serving);
             users.save(u);
@@ -56,7 +56,7 @@ public class MealService {
 
                 // update it with requestServing's eta.
                 serving.setEta(requestServing.getEta());
-                user.setToken(user.getToken() - 1);
+//                user.setToken(user.getToken() - 1);
                 meal.setServingCount(meal.getServingCount() - 1);
                 serving.setEta(requestServing.getEta());
                 serving.setUserEater(u);
@@ -74,6 +74,8 @@ public class MealService {
         for(Serving s : userServings) {
             for(int i = 0; i < userServings.size(); i ++) {
                 if (s.getComplete() == false) {
+                    user.setToken(user.getToken() - 1);
+                    s.getMeal().getUser().setToken(s.getMeal().getUser().getToken() + 1);
                     s.setComplete(true);
                 }
             }
