@@ -48,16 +48,8 @@ public class UserService {
     }
 
     public void rateUser(User ratee, int newRating){
-//        ratee.setNewRating(user.getNewRating());
-//
-//        u.setTotalRatings(u.getTotalRatings() + 1);
-//        u.setRating((u.getRating() * (u.getTotalRatings() - 1) + Integer.valueOf(u.getNewRating()))/u.getTotalRatings());
-//
-//        users.save(u);
-
         ratee.addRating(newRating);
         users.save(ratee);
     }
 }
 
-//return  http serverlet respon`

@@ -41,10 +41,10 @@ public class UserController {
         }
     }
 
-    @CrossOrigin
-    @RequestMapping(path = "/", method = RequestMethod.GET)
-    public void thing() {
-    }
+//    @CrossOrigin
+//    @RequestMapping(path = "/", method = RequestMethod.GET)
+//    public void thing() {
+//    }
 
     @RequestMapping(path = "/select-user/{id}", method = RequestMethod.POST)
     public User selectUser(@PathVariable("id") int id){

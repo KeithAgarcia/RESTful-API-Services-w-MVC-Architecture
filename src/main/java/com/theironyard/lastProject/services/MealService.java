@@ -29,10 +29,9 @@ public class MealService {
         meal.setUser(u);
         meals.save(meal);
 
-        for(int i = 0; i < meal.getServingCount(); i++){
+        for (int i = 0; i < meal.getServingCount(); i++) {
             Serving serving = new Serving(meal);
             User user = users.findFirstByUsername(u.getUsername());
-//            user.setToken(user.getToken() + 1);
             serving.setUserEater(u);
             servings.save(serving);
             users.save(u);
@@ -44,33 +43,29 @@ public class MealService {
         requestServing.setUserEater(u);
         requestServing.setMeal(meal);
 
-        // see if there are any servings in this meal without an eta (e.g. not taken
-//        Serving serving = servings.findFirstByMealAndEtaIsNull(meal);
-//        User user = users.findFirstByUsername(u.getUsername());
+        if (meal.getServingCount() > meal.getUser().getToken()) {
+            for (int i = 0; i < Integer.valueOf(requestServing.getServingAmt()); i++) {
+                Serving serving = servings.findFirstByMealAndEtaIsNull(meal);
+                User user = users.findFirstByUsername(u.getUsername());
 
-        // if there is a serving that matches your criteria,
-        for(int i = 0; i < Integer.valueOf(requestServing.getServingAmt()); i++){
-            Serving serving = servings.findFirstByMealAndEtaIsNull(meal);
-            User user = users.findFirstByUsername(u.getUsername());
-            if(serving.getEta() == null ) {
+                if (serving.getEta() == null) {
+                    serving.setEta(requestServing.getEta());
+                    meal.setServingCount(meal.getServingCount() - 1);
+                    serving.setEta(requestServing.getEta());
+                    serving.setUserEater(u);
 
-                // update it with requestServing's eta.
-                serving.setEta(requestServing.getEta());
-//                user.setToken(user.getToken() - 1);
-                meal.setServingCount(meal.getServingCount() - 1);
-                serving.setEta(requestServing.getEta());
-                serving.setUserEater(u);
-
-                // save the existing serving.
-                users.save(u);
-                servings.save(serving);
+                    users.save(u);
+                    servings.save(serving);
+                }
             }
-
+        } else {
+            throw new IllegalArgumentException("Not enough tokens");
         }
     }
 
     public void completeServing(User user, Meal meal){
         List <Serving> userServings= servings.findByUserAndMeal(user, meal);
+
         for(Serving s : userServings) {
             for(int i = 0; i < userServings.size(); i ++) {
                 if (s.getComplete() == false) {

@@ -10,6 +10,7 @@ import com.theironyard.lastProject.services.MealService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -57,13 +58,17 @@ public class MealController {
 
     @CrossOrigin
     @RequestMapping(path = "/reserve-serving/{id}", method = RequestMethod.PUT)
-    public Meal reserveServing(@RequestBody Serving serving, @PathVariable ("id") int id){
+    public Meal reserveServing(@RequestBody Serving serving, @PathVariable ("id") int id, HttpServletResponse response){
         org.springframework.security.core.userdetails.User auth = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User u = users.findFirstByUsername(auth.getUsername());
         serving.setUserEater(u);
         Meal m = meals.findOne(id);
-        mealService.reserveServing(m, u, serving);
 
+        try{
+            mealService.reserveServing(m, u, serving);
+        } catch (IllegalArgumentException ex) {
+            response.setStatus(422);
+    }
        return serving.getMeal();
     }
 

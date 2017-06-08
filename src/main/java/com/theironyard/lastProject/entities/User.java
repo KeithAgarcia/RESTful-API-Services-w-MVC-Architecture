@@ -36,28 +36,23 @@ public class User {
     @Column(nullable = false)
     int totalRatings;
 
-    // used to confirm passwords on user creation
-    // NOT STORED IN DATABASE
     String passwordConfirm;
 
     public User() {
     }
 
+    public void addRating(int newRating) {
+        int ratingSum = getTotalRatings() * getRating();
+        ratingSum += newRating;
+        setTotalRatings(getTotalRatings() + 1);
+        setRating(ratingSum / getTotalRatings());
+    }
 
     public User(String username, String password, Integer token){
         this.username = username;
         this.password = password;
         this.enabled = true;
 
-    }
-
-    public void addRating(int newRating) {
-        int ratingSum = getTotalRatings() * getRating();
-        ratingSum += newRating;
-
-        setTotalRatings(getTotalRatings() + 1);
-
-        setRating(ratingSum / getTotalRatings());
     }
 
     public User(String username, String password, String phone, Integer token, Integer rating, Integer totalRatings) {
@@ -88,8 +83,6 @@ public class User {
     public User(Integer rating) {
         this.rating = rating;
     }
-
-
 
     public void setUsername(String username) {
         this.username = username;
