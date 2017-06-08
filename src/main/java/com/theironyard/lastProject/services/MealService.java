@@ -45,22 +45,26 @@ public class MealService {
         requestServing.setMeal(meal);
 
         // see if there are any servings in this meal without an eta (e.g. not taken
-        Serving serving = servings.findFirstByMealAndEtaIsNull(meal);
-        User user = users.findFirstByUsername(u.getUsername());
+//        Serving serving = servings.findFirstByMealAndEtaIsNull(meal);
+//        User user = users.findFirstByUsername(u.getUsername());
 
         // if there is a serving that matches your criteria,
         for(int i = 0; i < Integer.valueOf(requestServing.getServingAmt()); i++){
+            Serving serving = servings.findFirstByMealAndEtaIsNull(meal);
+            User user = users.findFirstByUsername(u.getUsername());
+            if(serving.getEta() == null ) {
 
-            // update it with requestServing's eta.
-            serving.setEta(requestServing.getEta());
-            user.setToken(user.getToken() - 1);
-            meal.setServingCount(meal.getServingCount() - 1);
-            serving.setEta(requestServing.getEta());
-            serving.setUserEater(u);
+                // update it with requestServing's eta.
+                serving.setEta(requestServing.getEta());
+                user.setToken(user.getToken() - 1);
+                meal.setServingCount(meal.getServingCount() - 1);
+                serving.setEta(requestServing.getEta());
+                serving.setUserEater(u);
 
-            // save the existing serving.
-            users.save(u);
-            servings.save(serving);
+                // save the existing serving.
+                users.save(u);
+                servings.save(serving);
+            }
 
         }
     }
@@ -68,7 +72,11 @@ public class MealService {
     public void completeServing(User user, Meal meal){
         List <Serving> userServings= servings.findByUserAndMeal(user, meal);
         for(Serving s : userServings) {
-            s.setComplete(true);
+            for(int i = 0; i < userServings.size(); i ++) {
+                if (s.getComplete() == false) {
+                    s.setComplete(true);
+                }
+            }
         }
         servings.save(userServings);
     }
