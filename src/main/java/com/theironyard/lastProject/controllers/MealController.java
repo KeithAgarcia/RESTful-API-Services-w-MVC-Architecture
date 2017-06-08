@@ -85,7 +85,7 @@ public class MealController {
     }
 
     @CrossOrigin
-    @RequestMapping(path = "/meals-complete/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/meals-pending/{id}", method = RequestMethod.GET)
     public List<Meal> completeMeals(@PathVariable("id") int id){
         User u = users.findOne(id);
         List<Meal> servingMeals = meals.findDistinctByServings(u);
