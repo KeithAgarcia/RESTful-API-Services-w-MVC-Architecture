@@ -40,8 +40,6 @@ public class User {
     // NOT STORED IN DATABASE
     String passwordConfirm;
 
-    String newRating;
-
     public User() {
     }
 
@@ -51,6 +49,15 @@ public class User {
         this.password = password;
         this.enabled = true;
 
+    }
+
+    public void addRating(int newRating) {
+        int ratingSum = getTotalRatings() * getRating();
+        ratingSum += newRating;
+
+        setTotalRatings(getTotalRatings() + 1);
+
+        setRating(ratingSum / getTotalRatings());
     }
 
     public User(String username, String password, String phone, Integer token, Integer rating, Integer totalRatings) {
@@ -63,7 +70,7 @@ public class User {
         this.enabled = true;
    }
 
-    public User(String username, String phone, String password, boolean enabled, Integer token, Integer rating, Integer totalRatings, String passwordConfirm, String newRating) {
+    public User(String username, String phone, String password, boolean enabled, Integer token, Integer rating, Integer totalRatings, String passwordConfirm) {
         this.username = username;
         this.phone = phone;
         this.password = password;
@@ -72,7 +79,6 @@ public class User {
         this.rating = rating;
         this.totalRatings = totalRatings;
         this.passwordConfirm = passwordConfirm;
-        this.newRating = newRating;
     }
 
     public String getUsername() {
@@ -155,11 +161,4 @@ public class User {
         this.totalRatings = totalRatings;
     }
 
-    public String getNewRating() {
-        return newRating;
-    }
-
-    public void setNewRating(String newRating) {
-        this.newRating = newRating;
-    }
 }
