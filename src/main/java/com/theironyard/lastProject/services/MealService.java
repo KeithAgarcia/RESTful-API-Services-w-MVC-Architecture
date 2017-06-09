@@ -26,15 +26,12 @@ public class MealService {
     }
 
     public void saveMeal(Meal meal, User u) {
-        meal.setUser(u);
         meals.save(meal);
 
         for (int i = 0; i < meal.getServingCount(); i++) {
             Serving serving = new Serving(meal);
-            User user = users.findFirstByUsername(u.getUsername());
-            serving.setUserEater(u);
             servings.save(serving);
-            users.save(u);
+
         }
 
     }
@@ -76,5 +73,11 @@ public class MealService {
             }
         }
         servings.save(userServings);
+    }
+
+    public int getServingCount (Meal meal, User user){
+        List <Serving> userServings= servings.findByUserAndMeal(user, meal);
+        return userServings.size();
+
     }
 }

@@ -57,6 +57,15 @@ public class MealController {
     }
 
     @CrossOrigin
+    @RequestMapping(path = "/get-servings/{meal_id}", method = RequestMethod.GET)   //{user_id}
+    public int getServings(@PathVariable("meal_id") int mealId) { //@PathVariable("user_id") int userId)
+        org.springframework.security.core.userdetails.User auth = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User u = users.findFirstByUsername(auth.getUsername());
+        Meal m = meals.findOne(mealId);
+
+        return mealService.getServingCount(m, u);
+    }
+    @CrossOrigin
     @RequestMapping(path = "/reserve-serving/{id}", method = RequestMethod.PUT)
     public Meal reserveServing(@RequestBody Serving serving, @PathVariable ("id") int id, HttpServletResponse response){
         org.springframework.security.core.userdetails.User auth = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -67,10 +76,11 @@ public class MealController {
         try{
             mealService.reserveServing(m, u, serving);
             return serving.getMeal();
+
         } catch (IllegalArgumentException ex) {
             response.setStatus(422);
     }
-        return serving.getMeal();
+            return serving.getMeal();
     }
 
 

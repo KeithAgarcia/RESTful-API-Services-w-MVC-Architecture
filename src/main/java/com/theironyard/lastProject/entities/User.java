@@ -36,6 +36,7 @@ public class User {
     @Column(nullable = false)
     int totalRatings;
 
+
     String passwordConfirm;
 
     public User() {
