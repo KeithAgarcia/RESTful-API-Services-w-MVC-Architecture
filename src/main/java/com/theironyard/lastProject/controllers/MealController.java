@@ -66,10 +66,11 @@ public class MealController {
 
         try{
             mealService.reserveServing(m, u, serving);
+            return serving.getMeal();
         } catch (IllegalArgumentException ex) {
             response.setStatus(422);
     }
-       return serving.getMeal();
+        return serving.getMeal();
     }
 
 

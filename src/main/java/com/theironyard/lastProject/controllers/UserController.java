@@ -32,6 +32,7 @@ public class UserController {
         }
     }
 
+
     @CrossOrigin
     @RequestMapping(path = "/new-user", method = RequestMethod.POST)
     public void newUser(@RequestBody User user, HttpServletResponse response) {
