@@ -63,6 +63,7 @@ public class MealService {
     public void completeServing(User user, Meal meal){
         List <Serving> userServings= servings.findByUserAndMeal(user, meal);
 
+
         for(Serving s : userServings) {
             for(int i = 0; i < userServings.size(); i ++) {
                 if (s.getComplete() == false) {

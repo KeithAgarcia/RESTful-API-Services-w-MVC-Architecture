@@ -102,11 +102,27 @@ public class MealController {
 
 
     @CrossOrigin
-    @RequestMapping(path = "/meals-pending/", method = RequestMethod.GET)
+    @RequestMapping(path = "/meals-pending-eat/", method = RequestMethod.GET)
     public List<Meal> completeMeals(){
         org.springframework.security.core.userdetails.User auth = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User u = users.findFirstByUsername(auth.getUsername());
         List<Meal> servingMeals = meals.findDistinctByServings(u);
+        for(Meal s : servingMeals){
+            if(s.getUser().equals(u.getUsername())){
+            }
+        }
+        return servingMeals;
+    }
+
+    @CrossOrigin
+    @RequestMapping(path = "/meals-pending-cook", method = RequestMethod.GET)
+    public List<Meal> completeMealsCook(){
+        org.springframework.security.core.userdetails.User auth = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User u = users.findFirstByUsername(auth.getUsername());
+        List<Meal> servingMeals = meals.findDistinctByServings(u);
+        if(servingMeals.contains(u.getId())) {
+            return servingMeals;
+        }
         return servingMeals;
     }
 
