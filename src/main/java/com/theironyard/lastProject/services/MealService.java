@@ -43,7 +43,7 @@ public class MealService {
         requestServing.setUserEater(u);
         requestServing.setMeal(meal);
 
-        if (Integer.valueOf(requestServing.getServingAmt()) < meal.getUser().getToken()) {
+        if (Integer.valueOf(requestServing.getServingAmt()) < requestServing.getUserEater().getToken()) {
             for (int i = 0; i < Integer.valueOf(requestServing.getServingAmt()); i++) {
                 Serving serving = servings.findFirstByMealAndEtaIsNull(meal);
                 User user = users.findFirstByUsername(u.getUsername());

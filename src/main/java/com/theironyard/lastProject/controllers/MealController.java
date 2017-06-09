@@ -90,6 +90,7 @@ public class MealController {
         mealService.completeServing(u, m);
     }
 
+
     @CrossOrigin
     @RequestMapping(path = "/meals-pending/", method = RequestMethod.GET)
     public List<Meal> completeMeals(){
