@@ -171,7 +171,7 @@ public class MealController {
 
         for(Serving s : servingList){
             if(s.getMeal().getUser() == u){
-                if(s.getMeal().getEndTime().isBefore(LocalDateTime.now())){
+                if(s.getMeal().getEndTime().isAfter(LocalDateTime.now())){
                     s.setComplete(true);
                 }
                 if(s.getComplete().equals(false) && s.getEta() != null){
