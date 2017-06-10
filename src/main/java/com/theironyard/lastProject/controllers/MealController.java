@@ -40,6 +40,7 @@ public class MealController {
 
         User u = users.findFirstByUsername(auth.getUsername());
         meal.setUser(u);
+        meal.getUser().setTotalCookMeals(meal.getUser().getTotalCookMeals() + 1);
         mealService.saveMeal(meal, u);
 
         return meal;

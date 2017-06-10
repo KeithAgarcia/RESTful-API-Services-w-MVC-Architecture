@@ -26,9 +26,9 @@ public class UserController {
     @PostConstruct
     public void init() {
         if (users.count() == 0) {
-            userService.createUser("Keith", "admin","704-578-5872", 5, 0, 0);
-            userService.createUser("Neilson", "admin", "704-576-7734", 5, 0, 0);
-            userService.createUser("Mac", "admin", "704-444-1068", 5, 0, 0);
+            userService.createUser("Keith", "admin","704-578-5872", 5, 0, 0, 0);
+            userService.createUser("Neilson", "admin", "704-576-7734", 5, 0, 0, 0);
+            userService.createUser("Mac", "admin", "704-444-1068", 5, 0, 0, 0);
         }
     }
 
@@ -37,16 +37,12 @@ public class UserController {
     @RequestMapping(path = "/new-user", method = RequestMethod.POST)
     public void newUser(@RequestBody User user, HttpServletResponse response) {
         try {
-            userService.createUser(user.getUsername(), user.getPassword(), user.getPassword(), false, user.getPhone(), user.getToken(), user.getRating(), user.getTotalRatings());
+            userService.createUser(user.getUsername(), user.getPassword(), user.getPassword(), false, user.getPhone(),
+                    user.getToken(), user.getRating(), user.getTotalRatings(), user.getTotalCookMeals());
         } catch (IllegalArgumentException ex) {
             response.setStatus(422);
         }
     }
-
-//    @CrossOrigin
-//    @RequestMapping(path = "/", method = RequestMethod.GET)
-//    public void thing() {
-//    }gi
 
     @CrossOrigin
     @RequestMapping(path = "/select-user/{id}", method = RequestMethod.POST)
@@ -57,13 +53,8 @@ public class UserController {
     @CrossOrigin
     @RequestMapping(path = "/rate-user/{id}", method = RequestMethod.PUT)
     public void rateUser(@PathVariable("id") int id, @RequestBody int rating) {
-//        org.springframework.security.core.userdetails.User auth = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User ratee = users.findOne(id);
         userService.rateUser(ratee, rating);
-
-//        userService.rateUser(] u, u.getNewRating());
-
     }
 
-//    }
 }

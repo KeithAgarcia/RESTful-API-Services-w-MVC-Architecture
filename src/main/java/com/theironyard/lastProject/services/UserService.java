@@ -22,17 +22,18 @@ public class UserService {
         this.authorities = authorities;
         this.encoder = encoder;
     }
-    public void createUser(String username, String password, String phone, Integer token, Integer rating, Integer totalRating) {
-        createUser(username, password, password, false, phone, token, rating, totalRating);
+    public void createUser(String username, String password, String phone, Integer token, Integer rating, Integer totalRating, int totalCookedMeals) {
+        createUser(username, password, password, false, phone, token, rating, totalRating, totalCookedMeals);
     }
 
-    public void createUser(String username, String password, String passwordConfirmation, boolean isAdmin, String phone, Integer token, Integer rating, Integer totalRating) {
+    public void createUser(String username, String password, String passwordConfirmation, boolean isAdmin, String phone, Integer token, Integer rating, Integer totalRating, int totalCookedMeals) {
         User existingUser = users.findFirstByUsername(username);
 
         if ((existingUser == null) && password.equals(passwordConfirmation)) {
             token = 5;
             totalRating = 0;
-            User u = new User(username, encoder.encode(password), phone, token, rating, totalRating);
+            totalCookedMeals = 0;
+            User u = new User(username, encoder.encode(password), phone, token, rating, totalRating, totalCookedMeals);
 
             Authority authority = new Authority("ROLE_USER", u);
             users.save(u);

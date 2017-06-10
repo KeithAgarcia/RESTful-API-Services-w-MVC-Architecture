@@ -49,6 +49,7 @@ public class MealService {
                     serving.setEta(requestServing.getEta());
                     meal.setServingCount(meal.getServingCount() - 1);
                     serving.setEta(requestServing.getEta());
+//                    meal.getUser().setTotalCookMeals(meal.getUser().getTotalRatings() + 1);
                     serving.setUserEater(u);
 
                     users.save(u);

@@ -36,6 +36,9 @@ public class User {
     @Column(nullable = false)
     int totalRatings;
 
+    @Column(nullable = false)
+    int totalCookMeals;
+
 
     String passwordConfirm;
 
@@ -56,13 +59,14 @@ public class User {
 
     }
 
-    public User(String username, String password, String phone, Integer token, Integer rating, Integer totalRatings) {
+    public User(String username, String password, String phone, Integer token, Integer rating, Integer totalRatings, int totalCookMeals) {
         this.username = username;
         this.password = password;
         this.phone = phone;
         this.token = token;
         this.rating = rating;
         this.totalRatings = totalRatings;
+        this.totalCookMeals = totalCookMeals;
         this.enabled = true;
    }
 
@@ -155,4 +159,19 @@ public class User {
         this.totalRatings = totalRatings;
     }
 
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public void setTotalRatings(int totalRatings) {
+        this.totalRatings = totalRatings;
+    }
+
+    public int getTotalCookMeals() {
+        return totalCookMeals;
+    }
+
+    public void setTotalCookMeals(int totalCookMeals) {
+        this.totalCookMeals = totalCookMeals;
+    }
 }
