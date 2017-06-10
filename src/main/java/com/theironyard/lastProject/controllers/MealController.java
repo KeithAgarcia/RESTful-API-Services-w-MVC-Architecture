@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -103,28 +104,29 @@ public class MealController {
 
     @CrossOrigin
     @RequestMapping(path = "/meals-pending-eat/", method = RequestMethod.GET)
-    public List<Meal> completeMeals(){
+    public List<Meal> incompleteMealsEat(){
         org.springframework.security.core.userdetails.User auth = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User u = users.findFirstByUsername(auth.getUsername());
         List<Meal> servingMeals = meals.findDistinctByServings(u);
-        for(Meal s : servingMeals){
-            if(s.getUser().equals(u.getUsername())){
-            }
-        }
+
         return servingMeals;
     }
 
     @CrossOrigin
     @RequestMapping(path = "/meals-pending-cook", method = RequestMethod.GET)
-    public List<Meal> completeMealsCook(){
+    public List <Serving> incompleteMealsCook() {
         org.springframework.security.core.userdetails.User auth = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User u = users.findFirstByUsername(auth.getUsername());
-        List<Meal> servingMeals = meals.findDistinctByServings(u);
-        if(servingMeals.contains(u.getId())) {
-            return servingMeals;
+        List<Serving> cookedServings = new ArrayList<>();
+        List<Serving> servingList = (List<Serving>) servings.findAll();
+        for(Serving s : servingList){
+            if(s.getMeal().getUser() == u){
+                if(s.getComplete().equals(false)) {
+                    cookedServings.add(s);
+                }
+            }
         }
-        return servingMeals;
+        return cookedServings;
     }
-
 
 }

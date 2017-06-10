@@ -15,5 +15,8 @@ public interface ServingRepository extends CrudRepository<Serving, Integer> {
     List<Serving> findByUserAndMeal(User user, Meal m);
     List<Serving> findAllByUserAndMealAndCompleteIsNull(User user, Meal m);
     List<Serving> findByUser(User u);
+    List<Serving> findAllByMeal(List<Meal> m);
+    List<Serving> findAllByCompleteIsNullAndEtaIsNotNull();
+    List<Serving> findAllByCompleteIsNull();
 
 }

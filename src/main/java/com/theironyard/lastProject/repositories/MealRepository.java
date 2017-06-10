@@ -16,4 +16,6 @@ public interface MealRepository extends CrudRepository <Meal, Integer> {
 
     @Query("select distinct m from Serving s inner join s.meal m where s.user = ?1 and s.complete = false")
     List<Meal> findDistinctByServings(User user);
+
+
 }
