@@ -43,13 +43,13 @@ public class MealService {
         if (Integer.valueOf(requestServing.getServingAmt()) < requestServing.getUserEater().getToken()) {
             for (int i = 0; i < Integer.valueOf(requestServing.getServingAmt()); i++) {
                 Serving serving = servings.findFirstByMealAndEtaIsNull(meal);
-                User user = users.findFirstByUsername(u.getUsername());
+//                User user = users.findFirstByUsername(u.getUsername());
 
                 if (serving.getEta() == null) {
                     serving.setEta(requestServing.getEta());
                     meal.setServingCount(meal.getServingCount() - 1);
                     serving.setEta(requestServing.getEta());
-//                    meal.getUser().setTotalCookMeals(meal.getUser().getTotalRatings() + 1);
+                    meal.getUser().setTotalCookMeals(meal.getUser().getTotalRatings() + 1);
                     serving.setUserEater(u);
 
                     users.save(u);

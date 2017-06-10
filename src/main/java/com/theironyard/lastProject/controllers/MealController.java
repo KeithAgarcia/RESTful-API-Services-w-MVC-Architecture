@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,8 +63,10 @@ public class MealController {
 
         for(Meal meal : mealsList){
             if(meal.getUser() != u){
-                if(meal.getServingCount() > 0) {
-                    othersMeals.add(meal);
+                if(meal.getEndTime().isAfter(LocalDateTime.now())) {
+                    if (meal.getServingCount() > 0) {
+                        othersMeals.add(meal);
+                    }
                 }
             }
         }
@@ -121,7 +124,11 @@ public class MealController {
         org.springframework.security.core.userdetails.User auth = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User u = users.findFirstByUsername(auth.getUsername());
         List<Meal> servingMeals = meals.findDistinctByServings(u);
-
+        for( Meal m : servingMeals){
+            if(m.getEndTime().isBefore(LocalDateTime.now())){
+                servingMeals.remove(m);
+            }
+        }
         return servingMeals;
     }
 
@@ -135,7 +142,10 @@ public class MealController {
         List<Meal> cookedMeals = new ArrayList<>();
         for (Serving s : servingList) {
             if (s.getMeal().getUser() == u) {
-                if (s.getComplete().equals(false)) { //&& s.getEta() == null
+                if(s.getMeal().getEndTime().isBefore(LocalDateTime.now())){
+                    s.setComplete(true);
+                }
+                if (s.getComplete().equals(false)) {
                     cookedServings.add(s);
                 }
             }
@@ -161,6 +171,9 @@ public class MealController {
 
         for(Serving s : servingList){
             if(s.getMeal().getUser() == u){
+                if(s.getMeal().getEndTime().isBefore(LocalDateTime.now())){
+                    s.setComplete(true);
+                }
                 if(s.getComplete().equals(false) && s.getEta() != null){
                     cookedServings.add(s);
                 }
