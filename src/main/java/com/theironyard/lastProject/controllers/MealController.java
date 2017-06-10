@@ -54,7 +54,19 @@ public class MealController {
     @CrossOrigin
     @RequestMapping(path = "/all-meals", method = RequestMethod.GET)
     public List<Meal> getAllMeals() {
-        return (List<Meal>) meals.findAll();
+        List<Meal> mealsList = (List<Meal>) meals.findAll();
+        List<Meal> othersMeals = new ArrayList<>();
+        org.springframework.security.core.userdetails.User auth = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User u = users.findFirstByUsername(auth.getUsername());
+
+        for(Meal meal : mealsList){
+            if(meal.getUser() != u){
+                if(meal.getServingCount() > 0) {
+                    othersMeals.add(meal);
+                }
+            }
+        }
+        return othersMeals;
     }
 
     @CrossOrigin
@@ -103,7 +115,7 @@ public class MealController {
 
 
     @CrossOrigin
-    @RequestMapping(path = "/meals-pending-eat/", method = RequestMethod.GET)
+    @RequestMapping(path = "/meals-pending-eat", method = RequestMethod.GET)
     public List<Meal> incompleteMealsEat(){
         org.springframework.security.core.userdetails.User auth = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User u = users.findFirstByUsername(auth.getUsername());
