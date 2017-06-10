@@ -114,18 +114,27 @@ public class MealController {
 
     @CrossOrigin
     @RequestMapping(path = "/meals-pending-cook", method = RequestMethod.GET)
-    public List <Serving> incompleteMealsCook() {
+    public List <Meal> incompleteMealsCook() {
         org.springframework.security.core.userdetails.User auth = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User u = users.findFirstByUsername(auth.getUsername());
         List<Serving> cookedServings = new ArrayList<>();
         List<Serving> servingList = (List<Serving>) servings.findAll();
-        for(Serving s : servingList){
-            if(s.getMeal().getUser() == u){
-                if(s.getComplete().equals(false) && s.getEta() == null) {
+        List<Meal> cookedMeals = new ArrayList<>();
+        for (Serving s : servingList) {
+            if (s.getMeal().getUser() == u) {
+                if (s.getComplete().equals(false)) { //&& s.getEta() == null
                     cookedServings.add(s);
                 }
             }
         }
-        return cookedServings;
+        for (Serving c : cookedServings) {
+            if (cookedMeals.isEmpty()) {
+                cookedMeals.add(c.getMeal());
+            }
+            if (!(cookedMeals.contains(c.getMeal()))) {
+                cookedMeals.add(c.getMeal());
+            }
+        }
+        return cookedMeals;
     }
 }
