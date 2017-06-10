@@ -121,12 +121,11 @@ public class MealController {
         List<Serving> servingList = (List<Serving>) servings.findAll();
         for(Serving s : servingList){
             if(s.getMeal().getUser() == u){
-                if(s.getComplete().equals(false)) {
+                if(s.getComplete().equals(false) && s.getEta() == null) {
                     cookedServings.add(s);
                 }
             }
         }
         return cookedServings;
     }
-
 }
