@@ -139,11 +139,14 @@ public class MealController {
         User u = users.findFirstByUsername(auth.getUsername());
         List<Serving> cookedServings = new ArrayList<>();
         List<Serving> servingList = (List<Serving>) servings.findAll();
+        List<Meal> oldMeals = (List<Meal>) meals.findAll();
         List<Meal> cookedMeals = new ArrayList<>();
         for (Serving s : servingList) {
             if (s.getMeal().getUser() == u) {
                 if(s.getMeal().getEndTime().isBefore(LocalDateTime.now())){
                     s.setComplete(true);
+                    s.getMeal().setServingCount(s.getMeal().getServingCount() - 1);
+                    servings.delete(s);
                 }
                 if (s.getComplete().equals(false)) {
                     cookedServings.add(s);
@@ -156,6 +159,11 @@ public class MealController {
             }
             if (!(cookedMeals.contains(c.getMeal()))) {
                 cookedMeals.add(c.getMeal());
+            }
+        }
+        for(Meal m : oldMeals){
+            if(m.getServingCount() == 0){
+                meals.delete(m);
             }
         }
         return cookedMeals;
