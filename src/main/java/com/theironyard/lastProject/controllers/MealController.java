@@ -178,11 +178,14 @@ public class MealController {
         for (Serving s : servingList) {
             if (s.getMeal().getUser() == u) {
                 if (s.getComplete().equals(false) && s.getEta() != null) {
+
                     if (!cookedServings.contains(s)) {
                         cookedServings.add(s);
-                        s.setServingAmt("0");
+                        s.setServingAmt("1");
+                    } else {
+
                     }
-//                    s.setServingAmt(String.valueOf(Integer.valueOf(s.getServingAmt()) + 1));
+
                 }
             }
         }
