@@ -86,7 +86,7 @@ public class LastProjectApplication extends WebSecurityConfigurerAdapter {
 					.permitAll()
 				.and()
 				.logout()
-//				.logoutUrl("/logout")
+				.logoutUrl("/logout")
 				.permitAll()
 				.and()
 				.csrf().disable();
