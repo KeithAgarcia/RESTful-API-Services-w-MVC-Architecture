@@ -31,6 +31,9 @@ public class MealService {
 
         for (int i = 0; i < meal.getServingCount(); i++) {
             Serving serving = new Serving(meal);
+            serving.setEatAmt(0);
+            serving.setEatAmt(serving.getEatAmt() + 1);
+
             servings.save(serving);
 
         }

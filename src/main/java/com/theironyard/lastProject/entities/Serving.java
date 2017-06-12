@@ -25,8 +25,11 @@ public class Serving {
     @Column(nullable = false)
     boolean complete;
 
+
+
     String servingAmt;
 
+    @Column(nullable = false)
     Integer eatAmt;
 
 

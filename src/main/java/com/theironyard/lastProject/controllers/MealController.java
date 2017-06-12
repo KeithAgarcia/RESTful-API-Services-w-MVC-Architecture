@@ -180,7 +180,6 @@ public class MealController {
             if (s.getMeal().getUser() == u) {
                 if (s.getComplete().equals(false) && s.getEta() != null) {
                     if (!cookedServings.contains(s)) {
-                        s.setEatAmt(0);
                         cookedServings.add(s);
                     }
                 }
