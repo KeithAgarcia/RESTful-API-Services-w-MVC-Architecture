@@ -27,6 +27,8 @@ public class Serving {
 
     String servingAmt;
 
+    Integer eatAmt;
+
 
     public Serving() {
     }
@@ -107,6 +109,14 @@ public class Serving {
         this.servingAmt = servingAmt;
     }
 
+    public Integer getEatAmt() {
+        return eatAmt;
+    }
+
+    public void setEatAmt(Integer eatAmt) {
+        this.eatAmt = eatAmt;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -125,11 +135,13 @@ public class Serving {
         return result;
     }
 
-    public Serving(Meal meal, User user, LocalDateTime eta, boolean complete, String servingAmt) {
+    public Serving(Meal meal, User user, LocalDateTime eta, boolean complete, int eatAmt) {
         this.meal = meal;
         this.user = user;
         this.eta = eta;
         this.complete = complete;
-        this.servingAmt = servingAmt;
+        this.eatAmt = eatAmt;
     }
+
+
 }

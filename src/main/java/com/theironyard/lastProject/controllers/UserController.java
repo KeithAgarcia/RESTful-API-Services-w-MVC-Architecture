@@ -45,7 +45,7 @@ public class UserController {
     }
 
     @CrossOrigin
-    @RequestMapping(path = "/select-user/{id}", method = RequestMethod.POST)
+    @RequestMapping(path = "/select-user/{id}", method = RequestMethod.GET)
     public User selectUser(@PathVariable("id") int id){
         return users.findOne(id);
     }

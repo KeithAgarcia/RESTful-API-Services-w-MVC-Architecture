@@ -8,6 +8,7 @@ import com.theironyard.lastProject.repositories.ServingRepository;
 import com.theironyard.lastProject.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,6 +44,7 @@ public class MealService {
         if (Integer.valueOf(requestServing.getServingAmt()) <= requestServing.getUserEater().getToken()) {
             for (int i = 0; i < Integer.valueOf(requestServing.getServingAmt()); i++) {
                 Serving serving = servings.findFirstByMealAndEtaIsNull(meal);
+                List <Serving> requestedAmt = new ArrayList<>();
 //                User user = users.findFirstByUsername(u.getUsername());
 
                 if (serving.getEta() == null) {
@@ -52,9 +54,12 @@ public class MealService {
                     meal.getUser().setTotalCookMeals(meal.getUser().getTotalRatings() + 1);
                     serving.setUserEater(u);
                     serving.getUserEater().setToken(serving.getUserEater().getToken() - 1);
+                    serving.setEatAmt(Integer.valueOf(requestServing.getServingAmt()));
 
                     users.save(u);
                     servings.save(serving);
+
+
                 }
             }
         } else {

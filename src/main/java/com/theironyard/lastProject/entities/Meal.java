@@ -186,6 +186,8 @@ public class Meal {
         this.add_info = add_info;
     }
 
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
