@@ -146,7 +146,7 @@ public class MealController {
 //                    s.getMeal().setServingCount(s.getMeal().getServingCount() - 1);
 ////                    servings.delete(s);
                     if (s.getComplete().equals(false)) {
-                        s.getMeal().setServingCount(s.getMeal().getServingCount() - 1);
+//                        s.getMeal().setServingCount(s.getMeal().getServingCount() - 1);
                     cookedServings.add(s);
                 }
             }
