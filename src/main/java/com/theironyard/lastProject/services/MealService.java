@@ -40,7 +40,7 @@ public class MealService {
         requestServing.setUserEater(u);
         requestServing.setMeal(meal);
 
-        if (Integer.valueOf(requestServing.getServingAmt()) < requestServing.getUserEater().getToken()) {
+        if (Integer.valueOf(requestServing.getServingAmt()) <= requestServing.getUserEater().getToken()) {
             for (int i = 0; i < Integer.valueOf(requestServing.getServingAmt()); i++) {
                 Serving serving = servings.findFirstByMealAndEtaIsNull(meal);
 //                User user = users.findFirstByUsername(u.getUsername());
@@ -51,6 +51,7 @@ public class MealService {
                     serving.setEta(requestServing.getEta());
                     meal.getUser().setTotalCookMeals(meal.getUser().getTotalRatings() + 1);
                     serving.setUserEater(u);
+                    serving.getUserEater().setToken(serving.getUserEater().getToken() - 1);
 
                     users.save(u);
                     servings.save(serving);
@@ -68,7 +69,6 @@ public class MealService {
         for(Serving s : userServings) {
             for(int i = 0; i < userServings.size(); i ++) {
                 if (s.getComplete() == false) {
-                    user.setToken(user.getToken() - 1);
                     s.getMeal().getUser().setToken(s.getMeal().getUser().getToken() + 1);
                     s.setComplete(true);
                 }

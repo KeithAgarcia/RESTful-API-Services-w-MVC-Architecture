@@ -24,10 +24,7 @@ public class Meal {
     String name;
 
     @Column(nullable = false)
-    LocalDateTime startTime;
-
-    @Column(nullable = false)
-    LocalDateTime endTime;
+    LocalDateTime availableTime;
 
     @Column(nullable = false)
     String recipe;
@@ -55,11 +52,10 @@ public class Meal {
     public Meal() {
     }
 
-    public Meal(String name, LocalDateTime startTime, String recipe, String category, String street, String city, String state, String zipcode, String add_info, int servingCount, LocalDateTime endTime) {
+    public Meal(String name, LocalDateTime availableTime, String recipe, String category, String street, String city, String state, String zipcode, String add_info, int servingCount, LocalDateTime endTime) {
 //        this.user = user;
         this.name = name;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.availableTime = availableTime;
         this.recipe = recipe;
         this.category = category;
         this.street = street;
@@ -70,12 +66,11 @@ public class Meal {
         this.servingCount = servingCount;
     }
 
-    public Meal(List<Serving> servings, User user, String name, LocalDateTime startTime, String recipe, String category, String street, String city, String state, String zipcode, String add_info, int servingCount, LocalDateTime endTime) {
+    public Meal(List<Serving> servings, User user, String name, LocalDateTime availableTime, String recipe, String category, String street, String city, String state, String zipcode, String add_info, int servingCount, LocalDateTime endTime) {
         this.servings = servings;
         this.user = user;
         this.name = name;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.availableTime = availableTime;
         this.recipe = recipe;
         this.category = category;
         this.street = street;
@@ -118,12 +113,12 @@ public class Meal {
         this.name = name;
     }
 
-    public LocalDateTime getStartTime() {
-        return startTime;
+    public LocalDateTime getAvailableTime() {
+        return availableTime;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
+    public void setAvailableTime(LocalDateTime availableTime) {
+        this.availableTime = availableTime;
     }
 
     public String getRecipe() {
@@ -191,12 +186,20 @@ public class Meal {
         this.add_info = add_info;
     }
 
-    public LocalDateTime getEndTime() {
-        return endTime;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Meal meal = (Meal) o;
+
+        if (id != meal.id) return false;
+        return servingCount == meal.servingCount;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
+    @Override
+    public int hashCode() {
+        return id;
     }
 }
 

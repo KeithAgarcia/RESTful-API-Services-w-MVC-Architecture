@@ -11,7 +11,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,20 +53,20 @@ public class MealController {
     }
 
     @CrossOrigin
-    @RequestMapping(path = "/all-meals", method = RequestMethod.GET)
+    @RequestMapping(path = "/all-meals", method = RequestMethod.GET) //**
     public List<Meal> getAllMeals() {
         List<Meal> mealsList = (List<Meal>) meals.findAll();
         List<Meal> othersMeals = new ArrayList<>();
         org.springframework.security.core.userdetails.User auth = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User u = users.findFirstByUsername(auth.getUsername());
 
-        for(Meal meal : mealsList){
+        for(Meal meal : mealsList){ //**
             if(meal.getUser() != u){
-                if(meal.getEndTime().isAfter(LocalDateTime.now())) {
+//                if(meal.getEndTime().isAfter(LocalDateTime.now())) {
                     if (meal.getServingCount() > 0) {
                         othersMeals.add(meal);
                     }
-                }
+//                }
             }
         }
         return othersMeals;
@@ -119,21 +118,21 @@ public class MealController {
 
 
     @CrossOrigin
-    @RequestMapping(path = "/meals-pending-eat", method = RequestMethod.GET)
+    @RequestMapping(path = "/meals-pending-eat", method = RequestMethod.GET) //**
     public List<Meal> incompleteMealsEat(){
         org.springframework.security.core.userdetails.User auth = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User u = users.findFirstByUsername(auth.getUsername());
         List<Meal> servingMeals = meals.findDistinctByServings(u);
-        for( Meal m : servingMeals){
-            if(m.getEndTime().isBefore(LocalDateTime.now())){
-                servingMeals.remove(m);
-            }
-        }
+//        for( Meal m : servingMeals){
+//            if(m.getEndTime().isBefore(LocalDateTime.now())){
+//                servingMeals.remove(m);
+//            }
+//        }
         return servingMeals;
     }
 
     @CrossOrigin
-    @RequestMapping(path = "/meals-pending-cook", method = RequestMethod.GET)
+    @RequestMapping(path = "/meals-pending-cook", method = RequestMethod.GET) //***
     public List <Meal> incompleteMealsCook() {
         org.springframework.security.core.userdetails.User auth = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User u = users.findFirstByUsername(auth.getUsername());
@@ -143,12 +142,11 @@ public class MealController {
         List<Meal> cookedMeals = new ArrayList<>();
         for (Serving s : servingList) {
             if (s.getMeal().getUser() == u) {
-                if(s.getMeal().getEndTime().isBefore(LocalDateTime.now())){
-                    s.setComplete(true);
-                    s.getMeal().setServingCount(s.getMeal().getServingCount() - 1);
-                    servings.delete(s);
-                }
-                if (s.getComplete().equals(false)) {
+//                    s.setComplete(true);
+//                    s.getMeal().setServingCount(s.getMeal().getServingCount() - 1);
+////                    servings.delete(s);
+                    if (s.getComplete().equals(false)) {
+                        s.getMeal().setServingCount(s.getMeal().getServingCount() - 1);
                     cookedServings.add(s);
                 }
             }
@@ -161,29 +159,30 @@ public class MealController {
                 cookedMeals.add(c.getMeal());
             }
         }
-        for(Meal m : oldMeals){
-            if(m.getServingCount() == 0){
-                meals.delete(m);
-            }
-        }
+//        for(Meal m : oldMeals){
+//            if(m.getServingCount() == 0){
+//                meals.delete(m);
+//            }
+//        }
         return cookedMeals;
     }
 
     @CrossOrigin
-    @RequestMapping(path = "/people-pickup", method = RequestMethod.GET)
-    public List<Serving> peoplePickup(){
+    @RequestMapping(path = "/people-pickup", method = RequestMethod.GET) //****
+    public List<Serving> peoplePickup() {
         org.springframework.security.core.userdetails.User auth = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User u = users.findFirstByUsername(auth.getUsername());
         List<Serving> cookedServings = new ArrayList<>();
         List<Serving> servingList = (List<Serving>) servings.findAll();
 
-        for(Serving s : servingList){
-            if(s.getMeal().getUser() == u){
-                if(s.getMeal().getEndTime().isAfter(LocalDateTime.now())){
-                    s.setComplete(true);
-                }
-                if(s.getComplete().equals(false) && s.getEta() != null){
-                    cookedServings.add(s);
+        for (Serving s : servingList) {
+            if (s.getMeal().getUser() == u) {
+                if (s.getComplete().equals(false) && s.getEta() != null) {
+                    if (!cookedServings.contains(s)) {
+                        cookedServings.add(s);
+                        s.setServingAmt("0");
+                    }
+                    s.setServingAmt(String.valueOf(Integer.valueOf(s.getServingAmt()) + 1));
                 }
             }
         }

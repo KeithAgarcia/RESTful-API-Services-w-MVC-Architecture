@@ -27,6 +27,7 @@ public class Serving {
 
     String servingAmt;
 
+
     public Serving() {
     }
 
@@ -103,6 +104,32 @@ public class Serving {
     }
 
     public void setServingAmt(String servingAmt) {
+        this.servingAmt = servingAmt;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Serving serving = (Serving) o;
+
+        if (!meal.equals(serving.meal)) return false;
+        return user.equals(serving.user);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = meal.hashCode();
+        result = 31 * result + user.hashCode();
+        return result;
+    }
+
+    public Serving(Meal meal, User user, LocalDateTime eta, boolean complete, String servingAmt) {
+        this.meal = meal;
+        this.user = user;
+        this.eta = eta;
+        this.complete = complete;
         this.servingAmt = servingAmt;
     }
 }

@@ -55,7 +55,7 @@ public class LastProjectApplicationTests {
 
         meal.setUser(user);
         meal.setName("pizza");
-        meal.setStartTime(LocalDateTime.now());
+        meal.setAvailableTime(LocalDateTime.now());
         meal.setRecipe("Awesome Toppings");
         meal.setCategory("Italian");
         meal.setServingCount(5);
@@ -73,7 +73,7 @@ public class LastProjectApplicationTests {
 
 		meal.setUser(user);
 		meal.setName("pizza");
-		meal.setStartTime(LocalDateTime.now());
+		meal.setAvailableTime(LocalDateTime.now());
 		meal.setRecipe("Awesome Toppings");
 		meal.setCategory("Italian");
         meal.setServingCount(5);
