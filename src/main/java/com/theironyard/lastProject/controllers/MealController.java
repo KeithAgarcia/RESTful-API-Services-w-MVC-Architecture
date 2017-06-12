@@ -182,7 +182,7 @@ public class MealController {
                         cookedServings.add(s);
                         s.setServingAmt("0");
                     }
-                    s.setServingAmt(String.valueOf(Integer.valueOf(s.getServingAmt()) + 1));
+//                    s.setServingAmt(String.valueOf(Integer.valueOf(s.getServingAmt()) + 1));
                 }
             }
         }
