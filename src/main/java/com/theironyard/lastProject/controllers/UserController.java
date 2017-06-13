@@ -26,9 +26,9 @@ public class UserController {
     @PostConstruct
     public void init() {
         if (users.count() == 0) {
-            userService.createUser("Keith", "admin","704-578-5872", 5, 0, 0, 0);
-            userService.createUser("Neilson", "admin", "704-576-7734", 5, 0, 0, 0);
-            userService.createUser("Mac", "admin", "704-444-1068", 5, 0, 0, 0);
+            userService.createUser("Keith", "admin","704-578-5872", 5, 0, 3, 0);
+            userService.createUser("Neilson", "admin", "704-576-7734", 5, 0, 3, 0);
+            userService.createUser("Mac", "admin", "704-444-1068", 5, 0, 5, 0);
         }
     }
 
