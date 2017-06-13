@@ -173,7 +173,6 @@ public class MealController {
         org.springframework.security.core.userdetails.User auth = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User u = users.findFirstByUsername(auth.getUsername());
         List<Serving> cookedServings = new ArrayList<>();
-        List<Serving> servingEatAtm = new ArrayList<>();
         List<Serving> servingList = (List<Serving>) servings.findAll();
 
         for (Serving s : servingList) {
