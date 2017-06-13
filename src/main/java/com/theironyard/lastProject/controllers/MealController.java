@@ -177,6 +177,7 @@ public class MealController {
 
         for (Serving s : servingList) {
             if (s.getMeal().getUser() == u) {
+                s.setComplete(true);
                 if (s.getComplete().equals(false) && s.getEta() != null) {
                     if (!cookedServings.contains(s)) {
                         cookedServings.add(s);

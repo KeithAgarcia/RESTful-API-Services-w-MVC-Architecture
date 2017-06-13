@@ -60,6 +60,7 @@ public class MealService {
                     serving.getUserEater().setToken(serving.getUserEater().getToken() - 1);
                     serving.setEatAmt(Integer.valueOf(requestServing.getServingAmt()));
 
+
                     users.save(u);
                     servings.save(serving);
 
