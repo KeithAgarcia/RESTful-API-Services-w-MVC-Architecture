@@ -77,9 +77,10 @@ public class MealController {
     public int getServings(@PathVariable("meal_id") int mealId) { //@PathVariable("user_id") int userId)
         org.springframework.security.core.userdetails.User auth = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User u = users.findFirstByUsername(auth.getUsername());
-        Meal m = meals.findOne(mealId);
+        Meal meal = meals.findOne(mealId);
+        List<Serving> servingList = servings.findByUserAndMeal(u, meal);
 
-        return mealService.getServingCount(m, u);
+        return servingList.size();
     }
     @CrossOrigin
     @RequestMapping(path = "/reserve-serving/{id}", method = RequestMethod.PUT)
