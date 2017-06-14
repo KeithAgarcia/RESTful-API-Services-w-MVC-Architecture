@@ -31,7 +31,7 @@ public class User {
     Integer token;
 
     @Column(nullable = false)
-    int rating;
+    Double rating;
 
     @Column(nullable = false)
     int totalRatings;
@@ -46,7 +46,7 @@ public class User {
     }
 
     public void addRating(int newRating) {
-        int ratingSum = getTotalRatings() * getRating();
+        Double ratingSum = getTotalRatings() * getRating();
         ratingSum += newRating;
         setTotalRatings(getTotalRatings() + 1);
         setRating(ratingSum / getTotalRatings());
@@ -59,7 +59,7 @@ public class User {
 
     }
 
-    public User(String username, String password, String phone, Integer token, Integer rating, Integer totalRatings, int totalCookMeals) {
+    public User(String username, String password, String phone, Integer token, Double rating, Integer totalRatings, int totalCookMeals) {
         this.username = username;
         this.password = password;
         this.phone = phone;
@@ -70,7 +70,7 @@ public class User {
         this.enabled = true;
    }
 
-    public User(String username, String phone, String password, boolean enabled, Integer token, Integer rating, Integer totalRatings, String passwordConfirm) {
+    public User(String username, String phone, String password, boolean enabled, Integer token, Double rating, Integer totalRatings, String passwordConfirm) {
         this.username = username;
         this.phone = phone;
         this.password = password;
@@ -85,7 +85,7 @@ public class User {
         return username;
     }
 
-    public User(Integer rating) {
+    public User(Double rating) {
         this.rating = rating;
     }
 
@@ -143,12 +143,8 @@ public class User {
         this.passwordConfirm = passwordConfirm;
     }
 
-    public Integer getRating() {
+    public Double getRating() {
         return rating;
-    }
-
-    public void setRating(Integer rating) {
-        this.rating = rating;
     }
 
     public Integer getTotalRatings() {
@@ -159,7 +155,7 @@ public class User {
         this.totalRatings = totalRatings;
     }
 
-    public void setRating(int rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 
